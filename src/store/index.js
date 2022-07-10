@@ -19,7 +19,7 @@ export default new Vuex.Store({
         commentLikeSet: [], //用户评论点赞集合
         talkLikeSet: [], //用户说说点赞集合
         searchFlag: false,  //搜索框框
-        drawer: false,      //侧边抽屉
+        drawerFlag: false,      //侧边抽屉
         loginFlag: false,   //登录框
     },
     mutations: {

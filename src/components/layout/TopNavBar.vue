@@ -1,28 +1,28 @@
 <template>
   <v-app-bar :class="navClass" app hide-on-scroll flat height="60">
-<!--    960px > < 1264px*-->
+    <!--    960px > < 1264px*-->
     <div class="d-md-none nav-mobile-container">
-<!--      Avatar-->
-        <div style="font-size: 18px; font-weight: bold">
-          <router-link to="/">
-            <v-avatar
+      <!--      Avatar-->
+      <div style="font-size: 18px; font-weight: bold">
+        <router-link to="/">
+          <v-avatar
               size="40px"
               color="grey"
               style="margin-right: 10px"
-              >
-              <img :src="blogInfo.websiteConfig.websiteAvatar" />
-            </v-avatar>
-          </router-link>
-        </div>
-<!--     搜索  -->
+          >
+            <img :src="blogInfo.websiteConfig.websiteAvatar"/>
+          </v-avatar>
+        </router-link>
+      </div>
+      <!--     搜索  -->
       <div style="margin-left: auto">
         <a @click="openSearch"><i class="iconfont icon-sousuoxiao"/> </a>
-        <a @click="openDrawer" style="margin-left: 10px; font-size: 20px"><i class="iconfont icon-hanbaobao"/> </a>
+        <a @click="openDrawer" style="margin-left: 10px; font-size: 20px"><i class="iconfont icon-fenlei1"/> </a>
       </div>
     </div>
 
-<!--    大屏幕设备-->
-    <div class="d-md-block d-done nav-container">
+    <!--    大屏幕设备-->
+    <div class="d-md-block d-none nav-container">
       <div class="float-left blog-title">
         <router-link to="/">
           {{ blogInfo.websiteConfig.websiteAuthor }}
@@ -35,7 +35,7 @@
         </div>
 
         <div class="menus-item">
-          <router-link to="/" class="menu-btn"><i class="iconfont icon-shouye"/> 首页 </router-link>
+          <router-link to="/" class="menu-btn"><i class="iconfont icon-shouye"/> 首页</router-link>
         </div>
 
         <div class="menus-item">
@@ -101,10 +101,10 @@
 
         <div class="menus-item">
           <a
-            class="menu-btn"
-            v-if="!this.$store.state.avatar"
-            @click="openLogin"
-            >
+              class="menu-btn"
+              v-if="!this.$store.state.avatar"
+              @click="openLogin"
+          >
             <i class="iconfont icon-denglu"/> 登录
           </a>
 
@@ -199,65 +199,81 @@ export default {
 
 }
 </script>
-<style  scoped>
+<style scoped>
 body {
   background-color: black !important;
 }
+
 ul {
   list-style: none;
 }
+
 i {
   margin-right: 4px;
 }
+
 /*v-toolbar导航栏*/
 .nav {
   background: rgba(0, 0, 0, 0) !important;
 }
-.nav a{
+
+.nav a {
   color: #eee !important;
 }
+
 .nav .menu-btn {
   text-shadow: .1rem .1rem .2rem rgba(0, 0, 0, 0.3);
 }
-.nav .blog-title a{
+
+.nav .blog-title a {
   text-shadow: .1rem .1rem .2rem rgba(0, 0, 0, 0.15);
 }
+
 .nav-container {
   font-size: 14px;
   width: 100%;
   height: 100%;
 }
+
 .nav-mobile-container {
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
 }
+
 /*主题*/
 .theme--light.nav-fixed {
   background: rgba(255, 255, 255, .8) !important;
   box-shadow: 0 5px 6px -5px rgba(133, 133, 133, .6);
 }
+
 .theme--dark.nav-fixed {
   background: rgba(18, 18, 18, 0.8) !important;
 }
+
 .theme--dark.nav-fixed a {
   color: rgba(255, 255, 255, 0.8) !important;
 }
+
 .theme--light.nav-fixed a {
   color: #4c4948 !important;
 }
+
 .nav-fixed .menus-item a,
 .nav-fixed .blog-title a {
   text-shadow: none;
 }
+
 /*按钮的鼠标悬浮*/
 .nav-fixed .menu-btn:hover {
   color: #49b1f5 !important;
 }
+
 .menu-btn:hover:after {
   width: 100%;
 }
+
 .menus-item a:after {
   content: "";
 
@@ -277,34 +293,40 @@ i {
   align-items: center;
   height: 100%;
 }
-.blog-title a{
+
+.blog-title a {
   font-size: 18px;
   font-weight: bold;
 }
+
 .menus-item {
   position: relative;
   display: inline-block;
   margin: 0 0 0 .875rem;
 }
+
 .menus-item a {
   transition: all .2s;
 }
+
 /*悬浮时显示菜单*/
 .menus-item:hover .menus-submenu {
   display: block;
 }
+
 .menus-submenu {
   position: absolute;
   display: none;
 
   right: 0;
+  margin-top: 13px;
   width: max-content;
-  margin-top: 0px;
   box-shadow: 0 5px 20px -4px rgba(0, 0, 0, 0.5);
   background-color: #fff;
 
   animation: submenu .3s .1s ease both;
 }
+
 @keyframes submenu {
   0% {
     opacity: 0;
@@ -316,6 +338,25 @@ i {
     filter: none;
     transform: translateY(0);
   }
+}
+
+.menus-submenu:before {
+  position: absolute;
+  content: "";
+
+  top: -8px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+}
+
+.menus-submenu a {
+  display: block;
+  padding: 6px 14px;
+  line-height: 2;
+  color: #4c4948 !important;
+  text-shadow: none;
+
 }
 
 .user-avatar {

@@ -2,6 +2,8 @@
   <v-app >
 <!--    导航栏-->
     <TopNavBar></TopNavBar>
+<!--    侧边栏-->
+    <SideBarNav></SideBarNav>
 <!--    主体内容-->
     <v-main>
       <router-view :key="$route.fullPath" />
@@ -11,6 +13,7 @@
 
 <script>
 import TopNavBar from "./components/layout/TopNavBar";
+import SideBarNav from "@/components/layout/SideBarNav";
 export default {
   created() {
     //获取博客信息
@@ -29,7 +32,8 @@ export default {
     },
   },
   components: {
-    TopNavBar
+    TopNavBar,
+    SideBarNav
   }
 }
 </script>

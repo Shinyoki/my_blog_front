@@ -25,6 +25,48 @@ Index.install = function(Vue) {
             instance.show = false;
         }, duration);
     };
+    Vue.prototype.$toast = {};
+    // 成功
+    Vue.prototype.$toast.success = (message, duration = 2000) => {
+        instance.message = message;
+        instance.type = "success";
+        instance.visible = true;
+
+        setTimeout(() => {
+            instance.show = false;
+        }, duration);
+    };
+    // 失败
+    Vue.prototype.$toast.error = (message, duration = 2000) => {
+        instance.message = message;
+        instance.type = "error";
+        instance.visible = true;
+
+        setTimeout(() => {
+            instance.show = false;
+        }, duration);
+    }
+    // warning
+    Vue.prototype.$toast.warning = (message, duration = 2000) => {
+        instance.message = message;
+        instance.type = "warning";
+        instance.visible = true;
+
+        setTimeout(() => {
+            instance.show = false;
+        }, duration);
+    }
+    // primary
+    Vue.prototype.$toast.primary = (message, duration = 2000) => {
+        instance.message = message;
+        instance.type = "primary";
+        instance.visible = true;
+
+        setTimeout(() => {
+            instance.show = false;
+        }, duration);
+    }
+
 };
 
 export default Index;

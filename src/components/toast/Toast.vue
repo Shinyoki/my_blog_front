@@ -35,7 +35,7 @@ export default {
           this.color = "#F56C6C";
           this.icon = "iconfont icon-cuowu";
           break;
-        case "warnning":
+        case "warning":
           this.color = "#F57C00";
           this.icon = "iconfont icon-tishichenggong";
           break;
