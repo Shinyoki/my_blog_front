@@ -319,12 +319,15 @@ i {
   display: none;
 
   right: 0;
-  margin-top: 13px;
+  margin-top: 8px;
   width: max-content;
   box-shadow: 0 5px 20px -4px rgba(0, 0, 0, 0.5);
   background-color: #fff;
 
   animation: submenu 0.3s 0.1s ease both;
+}
+.menus-submenu a:hover{
+  background-color: #80c8f8;
 }
 
 @keyframes submenu {
@@ -363,5 +366,7 @@ i {
   cursor: pointer;
   border-radius: 50%;
 }
+
+
 
 </style>

@@ -96,7 +96,7 @@
       </div>
       <div class="menus-item">
         <router-link to="/message">
-          <i class="icon-pinglunxiao"/> 留言
+          <i class="iconfont icon-pinglunxiao"/> 留言
         </router-link>
       </div>
       <div class="menus-item" v-if="!this.$store.state.avatar">

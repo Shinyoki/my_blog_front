@@ -13,21 +13,22 @@ export default new Vuex.Store({
             tagCount: null,
             viewCount: null,
             websiteConfig: {}
-        },   //博客信息
-        registerFlag: false, //注册状态
-        userId: null, //用户id
-        avatar: null, //用户头像
-        nickname: null, //用户昵称
-        intro: null, //用户简介
-        webSite: null, //用户网站
-        email: null, //用户邮箱
-        loginType: null, //用户登录类型
-        articleLikeSet: [], //用户文章点赞集合
-        commentLikeSet: [], //用户评论点赞集合
-        talkLikeSet: [], //用户说说点赞集合
-        searchFlag: false,  //搜索框框
-        drawerFlag: false,      //侧边抽屉
-        loginFlag: false,   //登录框
+        },                                  //博客信息
+        userId: null,                       //用户id
+        avatar: null,                       //用户头像
+        nickname: null,                     //用户昵称
+        intro: null,                        //用户简介
+        webSite: null,                      //用户网站
+        email: null,                        //用户邮箱
+        loginType: null,                    //用户登录类型
+        articleLikeSet: [],                 //用户文章点赞集合
+        commentLikeSet: [],                 //用户评论点赞集合
+        talkLikeSet: [],                    //用户说说点赞集合
+        searchFlag: false,                  //搜索框
+        drawerFlag: false,                  //侧边抽屉
+        loginFlag: false,                   //登录框
+        forgetFlag: false,                  //忘记密码
+        registerFlag: false,                //注册
     },
     mutations: {
         //登录
@@ -59,6 +60,12 @@ export default new Vuex.Store({
         //初始化博客信息
         setBlogInfo(state, blogInfo) {
             state.blogInfo = blogInfo;
+        },
+        // 关闭所有模态框
+        closeModel(state) {
+            state.registerFlag = false;
+            state.loginFlag = false;
+            state.searchFlag = false;
         },
     },
     plugins: [

@@ -94,3 +94,35 @@ ul {
 .theme--dark.v-footer {
     color: #121212;
 }
+
+/*================PC端==============*/
+@media (min-width: 960px) {
+
+    /*登录框*/
+    .login-container {
+        padding: 1rem;
+        border-radius: 4px;
+        height: 500px;
+    }
+    /*第三方登录图标*/
+    .login-wrapper {
+        padding: 3.5rem 1.5rem 0 1.5rem;
+    }
+
+}
+
+/*==============移动端================*/
+@media (max-width: 959px) {
+
+    /*登录框*/
+    .login-container {
+        padding: 1rem;
+        border-radius: 4px;
+        height: 100vh;
+        width: 100vw;
+    }
+    /*第三方登录图标*/
+    .login-wrapper {
+        padding: 18vh .5rem 0 .5rem;
+    }
+}

@@ -25,7 +25,6 @@ Index.install = function(Vue) {
             instance.show = false;
         }, duration);
     };
-    Vue.prototype.$toast = {};
     // 成功
     Vue.prototype.$toast.success = (message, duration = 2000) => {
         instance.message = message;
