@@ -10,6 +10,8 @@
     </v-main>
 <!--    Footer-->
     <Footer></Footer>
+<!--    回到顶端-->
+    <BackTop></BackTop>
   </v-app>
 </template>
 
@@ -17,6 +19,7 @@
 import TopNavBar from "./components/layout/TopNavBar";
 import SideBarNav from "@/components/layout/SideBarNav";
 import Footer from "@/components/layout/Footer";
+import BackTop from "@/components/BackTop"
 export default {
   created() {
     //获取博客信息
@@ -37,7 +40,8 @@ export default {
   components: {
     TopNavBar,
     SideBarNav,
-    Footer
+    Footer,
+    BackTop
   }
 }
 </script>

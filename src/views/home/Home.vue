@@ -1,6 +1,9 @@
 <template>
-  <div>
-  </div>
+  <v-app>
+    <div style="height: 120vh; background: grey">
+
+    </div>
+  </v-app>
 </template>
 
 <script>
