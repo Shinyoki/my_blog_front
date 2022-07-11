@@ -6,14 +6,17 @@
     <SideBarNav></SideBarNav>
 <!--    主体内容-->
     <v-main>
-      <router-view :key="$route.fullPath" />
+      <router-view :key="this.$route.fullPath" />
     </v-main>
+<!--    Footer-->
+    <Footer></Footer>
   </v-app>
 </template>
 
 <script>
 import TopNavBar from "./components/layout/TopNavBar";
 import SideBarNav from "@/components/layout/SideBarNav";
+import Footer from "@/components/layout/Footer";
 export default {
   created() {
     //获取博客信息
@@ -33,7 +36,8 @@ export default {
   },
   components: {
     TopNavBar,
-    SideBarNav
+    SideBarNav,
+    Footer
   }
 }
 </script>

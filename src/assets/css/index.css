@@ -15,6 +15,7 @@ ul {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Lato, Roboto, 'PingFang SC', 'Microsoft YaHei', sans-serif !important;
 }
 
+/*==========Scroller===========*/
 ::-webkit-scrollbar {
     width: 8px;
     height: 8px;
@@ -72,6 +73,9 @@ ul {
 .theme--light.v-navigation-drawer {
     background: #f6f8fa;
 }
+.theme--light.v-footer {
+    color: #4c4948;
+}
 /*==============夜间模式====================*/
 .theme--dark.v-application {
     background: #121212;
@@ -86,4 +90,7 @@ ul {
 }
 .theme--dark.v-navigation-drawer {
     background-color: #121212;
+}
+.theme--dark.v-footer {
+    color: #121212;
 }

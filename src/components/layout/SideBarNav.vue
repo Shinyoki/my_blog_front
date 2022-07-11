@@ -163,7 +163,7 @@ export default {
   }
 }
 </script>
-<style>
+<style scoped>
 .blogger-avatar {
   padding: 26px 30px 0;
   text-align: center;
@@ -182,7 +182,7 @@ export default {
 
 .menu-container {
   padding: 0 10px 40px;
-  animation: .8s ease 0s 1 normal none running sidebarItem;
+  animation: 0.8s ease 0s 1 normal none running sidebarItem;
 }
 @keyframes sidebarItem {
   0% {

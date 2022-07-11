@@ -6,7 +6,14 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        blogInfo: {},   //博客信息
+        blogInfo: {
+            articleCount: null,
+            categoryCount: null,
+            pageList: [],
+            tagCount: null,
+            viewCount: null,
+            websiteConfig: {}
+        },   //博客信息
         registerFlag: false, //注册状态
         userId: null, //用户id
         avatar: null, //用户头像

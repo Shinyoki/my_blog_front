@@ -324,7 +324,7 @@ i {
   box-shadow: 0 5px 20px -4px rgba(0, 0, 0, 0.5);
   background-color: #fff;
 
-  animation: submenu .3s .1s ease both;
+  animation: submenu 0.3s 0.1s ease both;
 }
 
 @keyframes submenu {

@@ -11,6 +11,7 @@ import vuetify from "@/plugins/vuetify";
 import "./assets/css/index.css";
 import "./assets/css/iconfont/iconfont.css";
 import Toast from "@/components/toast/index";
+import dayjs from "dayjs";
 
 Vue.config.productionTip = false;
 Vue.prototype.blogConfig = require("./assets/js/config");
@@ -37,6 +38,28 @@ router.afterEach(() => {
     });
     Nprogress.done();
 });
+
+//Date Format
+Vue.filter("date", function (dateStr) {
+    return dayjs(dateStr).format("YYYY-MM-DD");
+});
+
+//Time Format
+Vue.filter("time", function (dateStr) {
+    return dayjs(dateStr).format("HH:mm:ss");
+});
+
+//Date Time Format
+Vue.filter("datetime", function (dateStr) {
+    return dayjs(dateStr).format("YYYY-MM-DD HH:mm:ss");
+});
+
+//Year Only
+Vue.filter("year", function (dateStr) {
+    return dayjs(dateStr).format("YYYY");
+});
+
+
 
 new Vue({
     router,
