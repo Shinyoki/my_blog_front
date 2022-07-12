@@ -7,6 +7,10 @@ const routes = [
   {
     path: "/",
     component: resolve => require(["../views/home/Home.vue"], resolve)
+  },
+  {
+    path: "/oauth/login/:loginType",
+    component: resolve => require(["../components/oauth/OauthLogin.vue"], resolve)
   }
 ];
 

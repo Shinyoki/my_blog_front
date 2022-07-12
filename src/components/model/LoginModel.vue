@@ -38,40 +38,44 @@
             class="mt-7"
             @keyup.enter="doLogin"
         />
-<!--        登录-->
+        <!--        登录-->
         <v-btn
-          class="mt-7"
-          block
-          color="blue"
-          style="color: #fff"
-          @click="doLogin"
-          >
+            class="mt-7"
+            block
+            color="blue"
+            style="color: #fff"
+            @click="doLogin"
+        >
           登录
         </v-btn>
-<!--        注册和找回密码-->
+        <!--        注册和找回密码-->
         <div class="mt-10 login-tip">
           <v-btn plain @click="openRegister">立即注册</v-btn>
           <v-btn plain @click="openForget" class="float-right">忘记密码?</v-btn>
         </div>
 
-<!--        第三方 登录-->
+        <!--        第三方 登录-->
         <div v-if="socialLoginList.length > 0">
           <div class="social-login-title">第三方登录</div>
           <div class="social-login-wrapper">
-<!--            qq-->
-            <a
+            <!--            qq-->
+            <v-icon
+                large
                 v-if="isThirdLoginSupport('qq')"
-                class="mr-3 iconfont icon-QQ"
-                style="color: #00AAEE"
+                class="mr-3 iconfont icon-QQ third-login-icon"
+                style="color: #00AAEE;"
                 @click="qqLogin"
-                />
-<!--            github-->
-            <a
-              v-if="isThirdLoginSupport('github')"
-              class="iconfont icon-github"
-              style="color: #00AAEE"
-              @click="githubLogin"
-              />
+            />
+
+
+            <!--            github-->
+            <v-icon
+                large
+                v-if="isThirdLoginSupport('github')"
+                class="iconfont icon-github third-login-icon"
+                style="color: #00AAEE;"
+                @click="githubLogin"
+            />
 
           </div>
         </div>
@@ -113,7 +117,7 @@ export default {
           param.append("username", that.username);
           param.append("password", that.password);
           console.log("请求")
-          that.postRequest("/login", param).then(({ data }) => {
+          that.postRequest("/login", param).then(({data}) => {
             if (data.flag) {
               that.username = "";
               that.password = "";
@@ -134,7 +138,13 @@ export default {
       //TODO qq登录
     },
     githubLogin() {
-      //TODO GITHUB登录
+      // 保存当前的路径，登录成功后跳转回来
+      this.$store.commit("saveBeforeLoginUrl", this.$route.path);
+      // 开启一个新的窗口并跳转到 github 登录页面
+      const loginUrl = this.blogConfig.GITHUB_AUTHORIZE_URL +
+          "?client_id=" + this.blogConfig.GITHUB_CLIENT_ID +
+          "&redirect_uri=" + this.blogConfig.GITHUB_REDIRECT_URL;
+      window.open(loginUrl, "_self");
     },
     // 打开注册模态框
     openRegister() {
@@ -163,7 +173,8 @@ export default {
     },
     // 社交登录
     socialLoginList() {
-      return JSON.parse(this.$store.state.blogInfo.websiteConfig.socialLoginList);
+      const flag = this.$store.state.blogInfo.websiteConfig.socialLoginList == null ? [] : this.$store.state.blogInfo.websiteConfig.socialLoginList;
+      return JSON.parse(flag);
     },
     // 第三方登录支持
     isThirdLoginSupport() {
@@ -177,13 +188,15 @@ export default {
 <style scoped>
 /*登录框*/
 .login-container {
-  background-color: #fff ;
+  background-color: #fff;
 }
+
 /*提示*/
 .login-tip {
   color: #b3b3b3;
   font-size: .865rem;
 }
+
 .login-tip span {
   cursor: pointer;
 }
@@ -194,6 +207,7 @@ export default {
   font-size: 2rem;
   text-align: center;
 }
+
 .social-login-wrapper a {
   text-decoration: none;
 }
@@ -205,6 +219,7 @@ export default {
   font-size: .75rem;
   text-align: center;
 }
+
 /*在前后加个块级元素，拉长显示*/
 .social-login-title::before {
   content: "";
@@ -216,6 +231,7 @@ export default {
   height: 1px;
   margin: 0 12px;
 }
+
 .social-login-title::after {
   content: "";
   display: inline-block;
@@ -227,4 +243,7 @@ export default {
   margin: 0 12px;
 }
 
+.third-login-icon:hover {
+  color: #ee7752 !important;
+}
 </style>

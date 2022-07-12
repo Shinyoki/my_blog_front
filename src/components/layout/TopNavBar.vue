@@ -1,5 +1,11 @@
 <template>
-  <v-app-bar :class="navClass" app hide-on-scroll flat height="60">
+  <v-app-bar
+      :class="navClass"
+      app
+      hide-on-scroll
+      flat
+      height="60"
+  >
     <!--    960px > < 1264px*-->
     <div class="d-md-none nav-mobile-container">
       <!--      Avatar-->
@@ -154,7 +160,7 @@ export default {
           document.documentElement.scrollTop ||
           document.body.scrollTop;
       that.scrollTop = scrollTop;
-      if (that.scrollTop > 60) {
+      if (that.scrollTop > 100) {
         that.navClass = "nav-fixed";
       } else {
         that.navClass = "nav";
@@ -249,7 +255,7 @@ i {
 }
 
 .theme--dark.nav-fixed {
-  background: rgba(18, 18, 18, 0.8) !important;
+  background: rgba(18, 18, 18, .8) !important;
 }
 
 .theme--dark.nav-fixed a {

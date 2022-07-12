@@ -29,9 +29,10 @@ export default new Vuex.Store({
         loginFlag: false,                   //登录框
         forgetFlag: false,                  //忘记密码
         registerFlag: false,                //注册
+        beforeLoginPath: "",                //登录前路径
     },
     mutations: {
-        //登录
+        // 登录
         login(state, user) {
             state.userId = user.userInfoId;
             state.avatar = user.avatar;
@@ -44,7 +45,7 @@ export default new Vuex.Store({
             state.commentLikeSet = user.commentLikeSet ? user.commentLikeSet : [];
             state.talkLikeSet = user.talkLikeSet ? user.talkLikeSet : [];
         },
-        //初始化用户信息
+        // 初始化用户信息
         logout(state) {
             state.userId = null;
             state.avatar = null;
@@ -57,7 +58,7 @@ export default new Vuex.Store({
             state.commentLikeSet = [];
             state.talkLikeSet = [];
         },
-        //初始化博客信息
+        // 初始化博客信息
         setBlogInfo(state, blogInfo) {
             state.blogInfo = blogInfo;
         },
@@ -67,6 +68,10 @@ export default new Vuex.Store({
             state.loginFlag = false;
             state.searchFlag = false;
         },
+        // 保存登陆前的所在页面
+        saveBeforeLoginUrl(state, url) {
+            state.beforeLoginPath = url;
+        }
     },
     plugins: [
         createPersistedState({

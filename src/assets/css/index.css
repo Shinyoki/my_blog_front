@@ -50,11 +50,6 @@ ul {
     background-color: #49b1f5;
 }
 
-@media (min-width: 760px) {
-    .v-toolbar__content, .v-toolbar__extension {
-        padding: 10px 36px;
-    }
-}
 /*==============日间模式====================*/
 /*网页背景*/
 .theme--light.v-application {
@@ -97,6 +92,10 @@ ul {
 
 /*================PC端==============*/
 @media (min-width: 960px) {
+
+    .v-toolbar__content, .v-toolbar__extension {
+        padding: 10px 36px;
+    }
 
     /*登录框*/
     .login-container {

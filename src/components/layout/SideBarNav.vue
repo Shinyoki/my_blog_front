@@ -13,7 +13,7 @@
         size="40"
         style="margin-bottom: .5rem"
         >
-        <img :src="this.$store.state.blogInfo.websiteConfig.websiteAvatar"/>
+        <img :src="curAvatar"/>
       </v-avatar>
     </div>
 <!-- 博客信息 -->
@@ -159,7 +159,10 @@ export default {
       get(){
         return this.$store.state.drawerFlag;
       }
-    }
+    },
+    curAvatar() {
+      return this.$store.state.avatar ? this.$store.state.avatar : this.$store.state.blogInfo.websiteConfig.websiteAvatar;
+    },
   }
 }
 </script>
