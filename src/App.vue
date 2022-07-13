@@ -14,6 +14,8 @@
     <BackTop></BackTop>
 <!--    登录模态框-->
     <LoginModel></LoginModel>
+<!--    注册模态框-->
+    <RegisterModel></RegisterModel>
   </v-app>
 </template>
 
@@ -23,6 +25,7 @@ import SideBarNav from "@/components/layout/SideBarNav";
 import Footer from "@/components/layout/Footer";
 import BackTop from "@/components/BackTop"
 import LoginModel from "@/components/model/LoginModel";
+import RegisterModel from "@/components/model/RegisterModel";
 export default {
   created() {
     //获取博客信息
@@ -45,7 +48,8 @@ export default {
     SideBarNav,
     Footer,
     BackTop,
-    LoginModel
+    LoginModel,
+    RegisterModel
   }
 }
 </script>

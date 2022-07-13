@@ -173,8 +173,14 @@ export default {
     },
     // 社交登录
     socialLoginList() {
-      const flag = this.$store.state.blogInfo.websiteConfig.socialLoginList == null ? [] : this.$store.state.blogInfo.websiteConfig.socialLoginList;
-      return JSON.parse(flag);
+      // 如果list是undefined或者是null，则返回空数组
+      let flag = null;
+      if (this.$store.state.blogInfo.websiteConfig.socialLoginList == undefined || this.$store.state.blogInfo.websiteConfig.socialLoginList == null) {
+        flag = [];
+      } else {
+        flag = JSON.parse(this.$store.state.blogInfo.websiteConfig.socialLoginList);
+      }
+      return flag;
     },
     // 第三方登录支持
     isThirdLoginSupport() {

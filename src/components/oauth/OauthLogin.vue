@@ -14,56 +14,59 @@
 <script>
 export default {
   created() {
+    // 20秒后视作超时，将回到主页
+    setTimeout(() => {
+      this.$toast.error("超时，请重新登录");
+      this.$router.push({path: that.$store.state.beforeLoginPath});
+    }, 40000);
     const that = this;
     // 关闭所有模态框
     that.$store.commit("closeModel");
 
-    console.log("当前参数")
-    console.log(that.$route.query)
-    console.log("返回code")
-    console.log(that.$route.query.code)
-    // 处理登录请求
-    const loginType = that.$route.params.loginType;
-    if (loginType == "github") {
-      const params = {
-        code: that.$route.query.code
-      }
-      this.postRequest("/users/oauth/github", params).then(res => {
-        if (res.data.flag) {
-          // 登录成功
-          that.$store.commit("login", res.data.data);
-          if (res.data.data.email == null) {
-            that.$toast.warning("请绑定邮箱以便及时收到回复");
-          } else {
-            that.$toast.success(res.data.message);
-          }
-        } else {
-          that.$toast.error(res.data.message);
-        }
-      })
-
-    }
-
-    // 跳转页面
-    const lastPath = that.$store.state.beforeLoginPath;
-    if (lastPath != null && lastPath != "") {
-      that.$router.push({path: lastPath });
+    if (this.$route.query.code == undefined || this.$route.query.code == "") {
+      that.$toast.warning("非法访问");
+      that.$router.push("/");
     } else {
-      that.$router.push({path: "/" });
+      const loginType = this.$route.params.loginType;
+      that.$toast.primary("开始处理Github登录请求，请稍后...", 4000);
+      /**
+       * Github
+       */
+      if (loginType == "github") {
+        const params = {
+          code: that.$route.query.code
+        }
+        this.postRequest("/users/oauth/github", params).then(res => {
+          if (res.data.flag) {
+            // 登录成功
+            that.$store.commit("login", res.data.data);
+            if (res.data.data.email == null) {
+              that.$toast.warning("请绑定邮箱以便及时收到回复");
+            } else {
+              that.$toast.success(res.data.message);
+            }
+          } else {
+            that.$toast.error(res.data.message);
+          }
+
+          // 跳转页面
+          const lastPath = that.$store.state.beforeLoginPath;
+          if (lastPath != null && lastPath != "") {
+            that.$router.push({path: lastPath});
+          } else {
+            that.$router.push({path: "/"});
+          }
+        })
+      }
+      //TODO qq
     }
 
   },
   data() {
-    return {
-
-    }
+    return {}
   },
-  methods: {
-
-  },
-  computed: {
-
-  }
+  methods: {},
+  computed: {}
 }
 </script>
 
