@@ -11,7 +11,7 @@
     >
       <!--      关闭图标 icon-->
       <v-icon
-          class="float-right"
+          style="position: absolute;top: 2px; right: 5px;"
           @click="registerFlag = false"
       >mdi-close
       </v-icon>
@@ -93,11 +93,58 @@ export default {
   methods: {
     // 注册
     doRegister() {
-      // TODO 注册
+      this.validEmail()
+      if (this.confirmCode.trim().length >6 || this.confirmCode.trim().length == 0) {
+        this.$toast.error("验证码格式不正确")
+        return false;
+      }
+      if (this.password.trim().length < 6 || this.password.trim().length > 20) {
+        this.$toast.error("密码格式不正确")
+        return false;
+      }
+
+
+      let params = {
+        username: this.username,
+        password: this.password,
+        code: this.confirmCode,
+      };
+      this.postRequest("/users/register", params).then(res => {
+        if (res.data.flag) {
+          // 注册成功，开始登录
+          this.$store.state.registerFlag = false;
+          let loginForm = new URLSearchParams();
+          loginForm.append("username", this.username);
+          loginForm.append("password", this.password);
+
+          this.postRequest("/login", loginForm).then(res => {
+            if (res.data.flag) {
+              this.$store.state.loginFlag = false;
+              this.username = "";
+              this.confirmCode = "";
+              this.password = "";
+              this.$store.commit("login", res.data.data);
+              this.store.commit("closeModel");
+              this.$toast.success("登录成功");
+            } else {
+              this.$toast.error(res.data.msg);
+            }
+          });
+        } else {
+          // 注册失败
+          this.$toast.error(res.data.message)
+        }
+      })
+
     },
     // 发送验证码
     sendCode() {
       if (!this.validEmail()) {
+        return false;
+      }
+
+      if (this.confirmCode.trim().length != 6) {
+        this.$toast.error("验证码格式不正确")
         return false;
       }
 

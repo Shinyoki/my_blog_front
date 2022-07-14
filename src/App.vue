@@ -16,6 +16,10 @@
     <LoginModel></LoginModel>
 <!--    注册模态框-->
     <RegisterModel></RegisterModel>
+<!--    绑定邮箱模态框-->
+    <EmailModel></EmailModel>
+<!--    忘记密码模态框-->
+    <ForgetModel></ForgetModel>
   </v-app>
 </template>
 
@@ -26,6 +30,8 @@ import Footer from "@/components/layout/Footer";
 import BackTop from "@/components/BackTop"
 import LoginModel from "@/components/model/LoginModel";
 import RegisterModel from "@/components/model/RegisterModel";
+import EmailModel from "@/components/model/EmailModel";
+import ForgetModel from "@/components/model/ForgetModel";
 export default {
   created() {
     //获取博客信息
@@ -49,7 +55,9 @@ export default {
     Footer,
     BackTop,
     LoginModel,
-    RegisterModel
+    RegisterModel,
+    EmailModel,
+    ForgetModel
   }
 }
 </script>

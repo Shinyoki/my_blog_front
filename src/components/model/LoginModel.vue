@@ -7,11 +7,11 @@
     <!--      登录框-->
     <v-card
         class="login-container"
-        style="border-radius: 4px"
+        style="border-radius: 4px;"
     >
       <!--      图标-->
       <v-icon
-          class="float-right"
+          style="position: absolute;top: 2px; right: 5px;"
           @click="showLoginDialog = false"
       >
         mdi-close
@@ -91,8 +91,8 @@ export default {
   data() {
     return {
       showPassword: false,    // 显示密码框中的密码
-      username: null,         // 用户名
-      password: null,         // 密码
+      username: "",         // 用户名
+      password: "",         // 密码
     }
   },
   methods: {
@@ -135,7 +135,30 @@ export default {
 
     },
     qqLogin() {
-      //TODO qq登录
+      this.$store.commit("saveBeforeLoginUrl", this.$route.path);
+
+      //判断设备
+      if (
+          /Android|iPhone|iPad|iPod|BlackBerry|webOS|Windows Phone|SymbianOS|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      ) {
+        // 移动端
+        QC.Login.showPopup({
+          appId: this.blogConfig.TENCENT_OAUTH_APP_ID,
+          redirectURII: this.blogConfig.TENCENT_OAUTH_REDIRECT_URI
+        });
+
+      } else {
+        // PC端
+        let requestAuthURI = "https://graph.qq.com/oauth2.0/show?which=Login&display=pc&client_id=" +
+            this.blogConfig.TENCENT_OAUTH_APP_ID +
+            "&response_type=code&redirect_uri=" +
+            this.blogConfig.TENCENT_OAUTH_REDIRECT_URI +
+            "&state=1";
+        // 跳转到授权页面
+        window.open(requestAuthURI, "_self")
+      }
+
+
     },
     githubLogin() {
       // 保存当前的路径，登录成功后跳转回来

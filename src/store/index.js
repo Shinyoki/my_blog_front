@@ -29,6 +29,7 @@ export default new Vuex.Store({
         loginFlag: false,                   //登录框
         forgetFlag: false,                  //忘记密码
         registerFlag: false,                //注册
+        emailFlag: false,                   //绑定邮箱
         beforeLoginPath: "",                //登录前路径
     },
     mutations: {
@@ -67,6 +68,9 @@ export default new Vuex.Store({
             state.registerFlag = false;
             state.loginFlag = false;
             state.searchFlag = false;
+            state.emailFlag = false;
+            state.forgetFlag = false;
+            state.drawerFlag = false;
         },
         // 保存登陆前的所在页面
         saveBeforeLoginUrl(state, url) {
