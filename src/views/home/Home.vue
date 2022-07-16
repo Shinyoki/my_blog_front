@@ -12,42 +12,65 @@
         <div class="blog-intro">
           {{ obj.output }} <span class="typing-cursor">|</span>
         </div>
-<!--        联系方式-->
+        <!--        联系方式-->
         <div class="blog-contact">
           <a
-            v-if="isShowSocialContact('qq')"
-            class="mr-5 iconfont icon-QQ"
-            target="_blank"
-            :href="qqContact"
-            />
+              v-if="isShowSocialContact('qq')"
+              class="mr-5 iconfont icon-QQ"
+              target="_blank"
+              :href="qqContact"
+          />
           <a
-            v-if="isShowSocialContact('github')"
-            class="mr-5 iconfont icon-github"
-            target="_blank"
-            :href="githubContact"
-            />
+              v-if="isShowSocialContact('github')"
+              class="mr-5 iconfont icon-github"
+              target="_blank"
+              :href="githubContact"
+          />
           <a
-            v-if="isShowSocialContact('gitee')"
-            class="iconfont icon-gitee"
-            target="_blank"
-            :href="giteeContact"
-            />
+              v-if="isShowSocialContact('gitee')"
+              class="iconfont icon-gitee"
+              target="_blank"
+              :href="giteeContact"
+          />
         </div>
       </div>
-<!--      向下滑动-->
+      <!--      向下滑动-->
       <div class="scroll-down" @click="scrollDown">
         <v-icon
-          color="#fff"
-          class="scroll-down-effects"
-          >mdi-chevron-down</v-icon>
+            color="#fff"
+            class="scroll-down-effects"
+        >mdi-chevron-down
+        </v-icon>
       </div>
     </div>
+<!--    主体内容-->
+    <v-row
+      class="home-container"
+      >
+<!--      中大型设备9列，默认12列-->
+      <v-col
+        md="9"
+        cols="12"
+        >
+<!--        说说轮播-->
+        <v-card
+            class="animated zoomIn"
+            v-if="talkList.length > 0"
+            >
+          <Swiper :list="talkList"></Swiper>
+        </v-card>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
 import EasyTyper from "easy-typer-js";
+import Swiper from "@/components/Swiper";
 export default {
+  components: {
+    Swiper
+  },
   data() {
     return {
       // easy-typer
@@ -60,11 +83,13 @@ export default {
         type: "rollback",
         backSpeed: 40,
         sentencePause: true
-      }
+      },
+      talkList: [],
     }
   },
   created() {
     this.init();
+    this.listHomeTalks();
   },
   methods: {
     // 初始化
@@ -76,7 +101,7 @@ export default {
           .then(res => {
             return res.json();    // 接收json格式
           })
-          .then(({ hitokoto}) => {
+          .then(({hitokoto}) => {
             this.setTyping(hitokoto);
           })
     },
@@ -91,6 +116,12 @@ export default {
         top: document.documentElement.clientHeight,
         behavior: "smooth"
       })
+    },
+    // 查询说说
+    listHomeTalks() {
+      this.getRequest("/home/talks").then(res => {
+        this.talkList = res.data.data;
+      });
     },
 
 
@@ -160,17 +191,38 @@ export default {
     transform: translateY(0);
   }
 }
+
 /*中间信息*/
 .banner-container {
   margin-top: 43vh;
   line-height: 1.5;
   color: #fff;
 }
+
+/*一言闪烁光标*/
+.typing-cursor {
+  opacity: 1;
+  animation: blink 1.3s infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 /*联系我图标*/
 .blog-contact a {
   text-decoration: none;
   color: #fff;
 }
+
 /*下拉按钮*/
 .scroll-down {
   cursor: pointer;
@@ -178,9 +230,11 @@ export default {
   bottom: 0;
   width: 100%;
 }
+
 .scroll-down i {
   font-size: 2rem;
 }
+
 .scroll-down-effects {
   color: #eee !important;
   text-align: center;
@@ -191,6 +245,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   animation: scroller-effect 1.5s infinite;
 }
+
 @keyframes scroller-effect {
   0% {
     top: 0;
@@ -207,5 +262,12 @@ export default {
     opacity: 0.4;
     filter: alpha(opacity=40);
   }
+}
+
+/*主页内容*/
+.home-container {
+  max-width: 1200px;
+  margin: calc(100vh - 48px) auto 28px auto;
+  padding: 0 24px;
 }
 </style>
