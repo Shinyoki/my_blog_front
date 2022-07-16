@@ -117,6 +117,8 @@ export default {
 .item {
   width: 100%;
 
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
   transition: all .3s;
 }
