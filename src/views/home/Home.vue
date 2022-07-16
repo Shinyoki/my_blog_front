@@ -81,7 +81,7 @@
           <!--          文章信息-->
           <div class="article-wrapper">
             <!--            标题-->
-            <div style="line-height: 1.4">
+            <div style="font-size: 1.5rem; font-weight: bold">
               <router-link :to="'/articles/' + article.id">
                 {{ article.articleTitle }}
               </router-link>
@@ -109,7 +109,7 @@
                   :to="'/categories/' + article.categoryId">
                 <v-icon
                     size="14"
-                >mdi-inbox-fuull
+                >mdi-inbox-full
                 </v-icon>
                 {{ article.categoryName }}
               </router-link>
@@ -138,7 +138,7 @@
 
         <!--            无限加载-->
         <infinite-loading @infinite="infiniteHandler">
-          <div slot="no-more">没有更多文章了捏~</div>
+          <div slot="no-more" class="mt-7">没有更多文章了捏~</div>
         </infinite-loading>
       </v-col>
 
@@ -292,7 +292,7 @@ export default {
     // 是否可显示
     isShowSocialContact() {
       return function (contactType) {
-        return this.blogInfo.websiteConfig.socialUrlList.indexOf(contactType) != -1;
+        return this.$store.state.blogInfo.websiteConfig.socialUrlList.indexOf(contactType) != -1;
       };
     },
     // qq联系
@@ -313,7 +313,7 @@ export default {
         return index % 2 == 0 ? "article-cover left-radius" : "article-cover right-radius";
       };
     },
-  }
+  },
 }
 </script>
 
@@ -416,11 +416,81 @@ export default {
     filter: alpha(opacity=40);
   }
 }
-
-/*主页内容*/
-.home-container {
-  /*max-width: 1200px;*/
-  margin: calc(100vh - 48px) auto 28px auto;
-  padding: 0 24px;
+/*PC端*/
+@media (min-width: 960px) {
+  /*博主*/
+  .blog-title {
+    font-size: 2.5rem;
+  }
+  /*一言*/
+  .blog-intro {
+    font-size: 1.5rem;
+  }
+  /*联系方式*/
+  .blog-contact {
+    display: none;
+  }
+  /*主体内容*/
+  .home-container {
+    max-width: 1200px;
+    margin: calc(100vh - 48px) auto 28px auto;
+    padding: 0 5px;
+  }
+  /*文章卡片*/
+  .article-card {
+    display: flex;
+    align-items: center;
+    height: 200px;
+    width: 100%;
+    margin-top: 20px;
+  }
+  /*放在卡片上时，图片放大*/
+  .article-card:hover .on-hover {
+    transform: scale(1.1);
+  }
+  /*默认过渡*/
+  .on-hover {
+    transition: all .6s;
+  }
+  /*文章图片*/
+  .article-cover {
+    overflow: hidden;
+    height: 100%;
+    width: 50%;
+  }
+  /*文章内容*/
+  .article-wrapper {
+    padding: 0 2.5rem;
+    width: 55%;
+  }
+  .article-wrapper a {
+    transition: all .3s;
+  }
 }
+
+.left-radius {
+  border-radius: 8px 0 0 8px !important;
+  order: 0;
+}
+.right-radius {
+  border-radius: 0 8px 8px 0 !important;
+  order: 1;
+}
+
+/*悬浮在超链接上时*/
+.article-wrapper a:hover {
+  color: #8e8cd8;
+}
+/*文章内容*/
+.article-content {
+  line-height: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: grey;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
 </style>

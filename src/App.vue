@@ -45,7 +45,6 @@ export default {
   methods: {
     getBlogInfo() {
       this.getRequest("/").then(res => {
-        console.log(res.data.data)
         this.$store.commit("setBlogInfo", res.data.data);
       })
     },
