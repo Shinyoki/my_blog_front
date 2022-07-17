@@ -114,7 +114,7 @@
             <i class="iconfont icon-denglu"/> 登录
           </a>
 
-          <template v-else>
+          <div v-else>
             <img
                 :src="this.$store.state.avatar"
                 class="user-avatar"
@@ -133,7 +133,7 @@
                 </a>
               </li>
             </ul>
-          </template>
+          </div>
         </div>
       </div>
     </div>
@@ -271,6 +271,17 @@ i {
   text-shadow: none;
 }
 
+.blog-title, .nav-title {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.blog-title a {
+  font-size: 18px;
+  font-weight: bold;
+}
+
 /*按钮的鼠标悬浮*/
 .nav-fixed .menu-btn:hover {
   color: #49b1f5 !important;
@@ -278,6 +289,16 @@ i {
 
 .menu-btn:hover:after {
   width: 100%;
+}
+
+.menus-item {
+  position: relative;
+  display: inline-block;
+  margin: 0 0 0 .875rem;
+}
+
+.menus-item a {
+  transition: all .2s;
 }
 
 .menus-item a:after {
@@ -292,27 +313,6 @@ i {
   background: #80c8f8;
 
   transition: all .3s ease-in-out;
-}
-
-.blog-title, .nav-title {
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-
-.blog-title a {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.menus-item {
-  position: relative;
-  display: inline-block;
-  margin: 0 0 0 .875rem;
-}
-
-.menus-item a {
-  transition: all .2s;
 }
 
 /*悬浮时显示菜单*/
@@ -335,14 +335,14 @@ i {
 .menus-submenu a:hover{
   background-color: #80c8f8;
 }
-
+/*弹出悬浮窗动画*/
 @keyframes submenu {
   0% {
     opacity: 0;
     filter: alpha(opacity=0);
     transform: translateY(10px);
   }
-  10% {
+  100% {
     opacity: 1;
     filter: none;
     transform: translateY(0);
