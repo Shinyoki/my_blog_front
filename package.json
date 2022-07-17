@@ -7,6 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "highlight.js": "^11.6.0",
     "markdown-it": "^13.0.1",
     "easy-typer-js": "^2.1.0",
     "animate.css": "^4.1.1",
