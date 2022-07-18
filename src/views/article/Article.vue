@@ -84,12 +84,9 @@
 <!--        文章内容卡片-->
         <v-card
           class="article-wrapper">
-<!--          <article-->
-<!--              id="write"-->
-<!--              class="article-content markdown-body"-->
-<!--              v-html="article.articleContent"-->
-<!--              ref="article"-->
-<!--          />-->
+          <div
+              class="markdown-body"
+              v-html="article.articleContent"/>
         </v-card>
       </v-col>
     </v-row>
@@ -97,7 +94,8 @@
 </template>
 
 <script>
-import Clipboard from "clipboard";    // 引入复制组件
+import Clipboard from "clipboard";
+import hljs from "highlight.js";    // 引入复制组件
 export default {
   created() {
     this.getCurArticle();
@@ -199,77 +197,76 @@ export default {
       return content
           .replace(/<\/?[^>]*>/g, "") //去除HTML tag
           .replace(/[|]*\n/, "")      //去除行尾空格
-          .replace(/&npsp;/gi, "")   //去掉&npsp;
-          .replace(/\s*/g, "");      //去除多余空格
+          .replace(/&npsp;/gi, "");   //去掉&npsp;
     },
-    // markdown转换html
+    // 文章内容转换html，同时自动处理markdown以及代码高亮
     markdown2Html(article) {
+      const MarkdownIt = require("markdown-it");
       const hljs = require("highlight.js");
-      // https://www.codeleading.com/article/24813067256/
-      var md = require('markdown-it')({
+      const md = new MarkdownIt({
         html: true,
         linkify: true,
         typographer: true,
         breaks: true,
-        hightlight: function (str, lang) {
-          // 当前时间加载生成的唯一id标识
-          let d = new Date().getTime();
+        highlight: function(str, lang) {
+          // uid
+          var d = new Date().getTime();
           if (
-              window.performance && typeof window.performance.now === "function"
+              window.performance &&
+              typeof window.performance.now === "function"
           ) {
             d += performance.now();
           }
-          // 代码块id
           const codeIndex = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
               /[xy]/g,
-              function (c) {
+              function(c) {
                 var r = (d + Math.random() * 16) % 16 | 0;
                 d = Math.floor(d / 16);
                 return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
               }
           );
+          // 复制功能主要使用的是 clipboard.js
+          let copyBtnHtml = `<button class="copy-btn iconfont icon-fuzhi" type="button" data-clipboard-action="copy" data-clipboard-target="#copy${codeIndex}"></button>`;
 
-          // 复制功能的主要使用的是clipboard.js: target为 #copy + codeIndex
-          let html = `<button class="copy-btn iconfont icon-fuzhi" type="button" data-clipboard-action="copy" data-clipboard-target="#copy${codeIndex}"></button>`;
-
-          // 得到行数
+          // 行号
           const linesLength = str.split(/\n/).length - 1;
-          // 生成行号
-          let linesNum = `<span aria-hidden="true" class="line-numbers-rows">`;
+          let linesNumerHtml = '<span aria-hidden="true" class="line-numbers-rows">';
           for (let index = 0; index < linesLength; index++) {
-            linesNum = linesNum + "<span></span>";
+            linesNumerHtml = linesNumerHtml + "<span></span>";
           }
-          linesNum += "</span>";
+          linesNumerHtml += "</span>";
 
-          // 默认代码
+          // 渲染代码
           if (lang == null) {
             lang = "java";
           }
-
-          // 编程语言
           if (lang && hljs.getLanguage(lang)) {
-            // 高亮后的代码
+            // highlight.js 高亮代码
             const preCode = hljs.highlight(lang, str, true).value;
-            html += preCode;
 
+            console.log("hljs加工后的代码")
+            console.log(preCode)
+
+            copyBtnHtml = copyBtnHtml + preCode;
             if (linesLength) {
-              html += `<b class="name">` + lang + `</b>`;
+              copyBtnHtml += '<b class="name">' + lang + "</b>";
             }
 
-            // 将代码包裹在 textarea 中，由于防止textarea渲染出现问题，这里将 "<" 用 "<" 代替，不影响复制功能
-            return `<pre class="hljs"><code>${html}</code>${linesNum}</pre><textarea style="position: absolute;top: -9999px;left: -9999px;z-index: -9999;" id="copy${codeIndex}">${str.replace(
-                /<\/textarea>/g,
-                "</textarea>"
-            )}</textarea>`;
+            // 将代码包裹在 textarea 中隐藏，hljs加工好的代码和btn一同放进 code 中，clipbard复制的内容就在 #copy + uid中
+            return `<pre class="hljs">
+                        <code>${copyBtnHtml}</code>
+                        ${linesNumerHtml}
+                    </pre>
+                    <textarea
+                        style="position: absolute;top: -9999px;left: -9999px;z-index: -9999;"
+                        id="copy${codeIndex}"
+                        >${str.replace(/<\/textarea>/g, "</textarea>")}
+                    </textarea>`;
           }
-        },
-      });
-
-      // 使用mark插件
-      md.use(require("markdown-it-mark"));
-
-      // 渲染html
-      article.articleContent = md.render(article.articleContent)
+        }
+      }).use(require("markdown-it-mark"));
+      // 将markdown替换为html标签
+      article.articleContent = md.render(article.articleContent);
       this.article = article;
     },
   },
@@ -357,3 +354,95 @@ export default {
 }
 
 </style>
+
+
+<style lang="scss">
+pre.hljs {
+  padding: 12px 2px 12px 40px !important;
+  border-radius: 5px !important;
+  position: relative;
+  font-size: 14px !important;
+  line-height: 22px !important;
+  overflow: hidden !important;
+
+  &:hover .copy-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  code {
+    display: block !important;
+    //margin: 0 10px !important;
+    overflow-x: auto !important;
+    &::-webkit-scrollbar {
+      z-index: 11;
+      width: 6px;
+    }
+    &::-webkit-scrollbar:horizontal {
+      height: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 5px;
+      width: 6px;
+      background: #666;
+    }
+    &::-webkit-scrollbar-corner,
+    &::-webkit-scrollbar-track {
+      background: #1e1e1e;
+    }
+    &::-webkit-scrollbar-track-piece {
+      background: #1e1e1e;
+      width: 6px;
+    }
+  }
+  .line-numbers-rows {
+    position: absolute;
+    pointer-events: none;
+    top: 12px;
+    bottom: 12px;
+    left: 0;
+    font-size: 100%;
+    width: 40px;
+    text-align: center;
+    letter-spacing: -1px;
+    border-right: 1px solid rgba(0, 0, 0, 0.66);
+    user-select: none;
+    counter-reset: linenumber;
+    span {
+      pointer-events: none;
+      display: block;
+      counter-increment: linenumber;
+      &:before {
+        content: counter(linenumber);
+        color: #999;
+        display: block;
+        text-align: center;
+      }
+    }
+  }
+  b.name {
+    position: absolute;
+    top: 7px;
+    right: 45px;
+    z-index: 1;
+    color: #999;
+    pointer-events: none;
+  }
+  .copy-btn {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    z-index: 1;
+    color: #ccc;
+    background-color: #525252;
+    border-radius: 6px;
+    display: none;
+    font-size: 14px;
+    width: 32px;
+    height: 24px;
+    outline: none;
+  }
+}
+</style>
+
+

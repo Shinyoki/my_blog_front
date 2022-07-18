@@ -14,7 +14,8 @@ import Toast from "@/components/toast/index";   // 自定义消息提示 $toast�
 import dayjs from "dayjs";                      // 日期处理工具
 import config from "./assets/js/config";        // 自定义全局配置
 import InfiniteLoading from "vue-infinite-loading";     // vue的 自动无限加载组件
-import "highlight.js/styles/github.css"; // 高亮代码样式
+import "@/assets/css/markdown.css"          // markdown css
+import "highlight.js/styles/atom-one-dark.css";
 
 Vue.config.productionTip = false;
 Vue.prototype.blogConfig = config;

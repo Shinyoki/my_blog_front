@@ -171,6 +171,27 @@ ul {
 
 }
 
+/*代码高亮*/
+.hljs {
+    background: #282c34 !important;
+}
+
+pre.hljs code {
+    display: block !important;
+    margin: 0 10px !important;
+    overflow-x: auto !important;
+}
+.v-application code{
+    color: #dcdcdc;
+    font-weight: normal;
+}
+.v-application code:before {
+    content: "";
+}
+.v-application code:after {
+    content: "";
+}
+
 /*==============动画=================*/
 /*从上倒下渐变显现*/
 @keyframes banner-effect {
