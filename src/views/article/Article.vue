@@ -170,7 +170,7 @@ export default {
           // 修改网页标签
           document.title = res.data.data.articleTitle;
           // markdown转换
-          this.markdown2Html(res.data.data);
+          this.markdownToHtml(res.data.data);
           // 得到数据后 nextTick渲染
           this.$nextTick(() => {
             // 统计字数
@@ -200,7 +200,7 @@ export default {
           .replace(/&npsp;/gi, "");   //去掉&npsp;
     },
     // 文章内容转换html，同时自动处理markdown以及代码高亮
-    markdown2Html(article) {
+    markdownToHtml(article) {
       const MarkdownIt = require("markdown-it");
       const hljs = require("highlight.js");
       const md = new MarkdownIt({
@@ -209,7 +209,7 @@ export default {
         typographer: true,
         breaks: true,
         highlight: function(str, lang) {
-          // uid
+          // 当前时间加随机数生成唯一的id标识
           var d = new Date().getTime();
           if (
               window.performance &&
@@ -217,7 +217,7 @@ export default {
           ) {
             d += performance.now();
           }
-          const codeIndex = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+          const unicode = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
               /[xy]/g,
               function(c) {
                 var r = (d + Math.random() * 16) % 16 | 0;
@@ -226,46 +226,37 @@ export default {
               }
           );
           // 复制功能主要使用的是 clipboard.js
-          let copyBtnHtml = `<button class="copy-btn iconfont icon-fuzhi" type="button" data-clipboard-action="copy" data-clipboard-target="#copy${codeIndex}"></button>`;
+          let copyBtnHtml = `<button class="copy-btn iconfont icon-fuzhi" type="button" data-clipboard-action="copy" data-clipboard-target="#copy${unicode}"></button>`;
 
-          // 行号
+          // 生成行号
           const linesLength = str.split(/\n/).length - 1;
-          let linesNumerHtml = '<span aria-hidden="true" class="line-numbers-rows">';
+          let linesNumberSpan = '<span aria-hidden="true" class="line-numbers-rows">';
           for (let index = 0; index < linesLength; index++) {
-            linesNumerHtml = linesNumerHtml + "<span></span>";
+            linesNumberSpan = linesNumberSpan + "<span></span>";
           }
-          linesNumerHtml += "</span>";
+          linesNumberSpan += "</span>";
 
-          // 渲染代码
+          // highlight.js 高亮代码
           if (lang == null) {
             lang = "java";
           }
           if (lang && hljs.getLanguage(lang)) {
-            // highlight.js 高亮代码
+            // hljs 渲染一次代码
             const preCode = hljs.highlight(lang, str, true).value;
 
-            console.log("hljs加工后的代码")
-            console.log(preCode)
-
+            // 将渲染好的html代码拼接到button上
             copyBtnHtml = copyBtnHtml + preCode;
             if (linesLength) {
               copyBtnHtml += '<b class="name">' + lang + "</b>";
             }
 
-            // 将代码包裹在 textarea 中隐藏，hljs加工好的代码和btn一同放进 code 中，clipbard复制的内容就在 #copy + uid中
-            return `<pre class="hljs">
-                        <code>${copyBtnHtml}</code>
-                        ${linesNumerHtml}
-                    </pre>
-                    <textarea
-                        style="position: absolute;top: -9999px;left: -9999px;z-index: -9999;"
-                        id="copy${codeIndex}"
-                        >${str.replace(/<\/textarea>/g, "</textarea>")}
-                    </textarea>`;
+            // 将代码包裹在 textarea 中，加上id以便通过 clipboard js复制
+            return `<pre class="hljs"><code>${copyBtnHtml}</code>${linesNumberSpan}</pre><textarea style="position: absolute;top: -9999px;left: -9999px;z-index: -9999;" id="copy${unicode}">${str.replace(/<\/textarea>/g, "</textarea>")}</textarea>`;
           }
         }
       }).use(require("markdown-it-mark"));
-      // 将markdown替换为html标签
+
+      // 重新设置内容
       article.articleContent = md.render(article.articleContent);
       this.article = article;
     },
@@ -364,15 +355,10 @@ pre.hljs {
   font-size: 14px !important;
   line-height: 22px !important;
   overflow: hidden !important;
-
-  &:hover .copy-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+  &
   code {
     display: block !important;
-    //margin: 0 10px !important;
+    margin: 0 10px !important;
     overflow-x: auto !important;
     &::-webkit-scrollbar {
       z-index: 11;
@@ -443,6 +429,9 @@ pre.hljs {
     outline: none;
   }
 }
+pre:hover .copy-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 </style>
-
-
