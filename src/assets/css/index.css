@@ -27,7 +27,7 @@ ul {
 }
 
 ::-webkit-scrollbar-track {
-    background-color: rgba(73, 177, 245, 0.2);
+    background-cfolor: rgba(73, 177, 245, 0.2);
     border-radius: 2em;
 }
 
@@ -98,6 +98,7 @@ ul {
 /*================PC端==============*/
 @media (min-width: 960px) {
 
+    /*顶端栏*/
     .v-toolbar__content, .v-toolbar__extension {
         padding: 10px 36px;
     }
@@ -112,11 +113,38 @@ ul {
     .login-wrapper {
         padding: 3.5rem 1.5rem 0 1.5rem;
     }
+    /*头图*/
+    .banner {
+        position: absolute;
+        top: -60px;
+        left: 0;
+        right: 0;
+
+        height: 400px;
+        background-color: #49b1f5 !important;
+        animation: banner-effect 1s ease-in-out;
+    }
+
+/*    文章主体：内容和侧边信息*/
+    .article-container {
+        animation: main 1s;
+        max-width: 1200px;
+        margin: 373px auto 40px auto !important;
+        padding: 0 5px;
+    }
+/*    文章内容*/
+    .article-wrapper {
+        padding: 50px 40px;
+    }
 
 }
 
 /*==============移动端================*/
 @media (max-width: 959px) {
+
+    .v-toolbar__content, .v-toolbar__extension {
+        padding: 10px 16px;
+    }
 
     /*登录框*/
     .login-container {
@@ -128,5 +156,45 @@ ul {
     /*第三方登录图标*/
     .login-wrapper {
         padding: 18vh 3rem 0 3rem;
+    }
+    /*头图*/
+    .banner {
+        position: absolute;
+        top: -60px;
+        left: 0;
+        right: 0;
+
+        height: 200px;
+        background-color: #49b1f5 !important;
+        animation: banner-effect 1s ease-in-out;
+    }
+
+}
+
+/*==============动画=================*/
+/*从上倒下渐变显现*/
+@keyframes banner-effect {
+    0% {
+        opacity: 0;
+        filter: alpha(opacity=0);
+        transform: translateY(-50px);
+    }
+    100% {
+        opacity: 1;
+        filter: none;
+        transform: translateY(0);
+    }
+}
+/*从下向上渐变显示*/
+@keyframes main {
+    0% {
+        opacity: 0;
+        filter: alpha(opacity=0);
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        filter: none;
+        transform: translateY(0);
     }
 }

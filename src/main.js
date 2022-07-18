@@ -14,7 +14,7 @@ import Toast from "@/components/toast/index";   // 自定义消息提示 $toast�
 import dayjs from "dayjs";                      // 日期处理工具
 import config from "./assets/js/config";        // 自定义全局配置
 import InfiniteLoading from "vue-infinite-loading";     // vue的 自动无限加载组件
-import "highlight.js/styles/base16/github.css"; // 高亮代码样式
+import "highlight.js/styles/github.css"; // 高亮代码样式
 
 Vue.config.productionTip = false;
 Vue.prototype.blogConfig = config;
@@ -63,7 +63,13 @@ Vue.filter("year", function (dateStr) {
     return dayjs(dateStr).format("YYYY");
 });
 
-
+// 字数统计
+Vue.filter("num", (number) => {
+    if (number >= 1000) {
+        return (number / 1000).toFixed(1) + "K";
+    }
+    return number;
+})
 
 new Vue({
     router,
