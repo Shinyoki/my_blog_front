@@ -1,12 +1,13 @@
 <template>
   <v-snackbar
     v-model="visible"
-    :timeout="3000"
+    :timeout="timeout"
     :color="color"
     top
     >
     <i :class="icon" style="margin-right: 10px"/>
     {{ message }}
+    <v-btn @click="visible = false" class="float-right" text>关闭</v-btn>
   </v-snackbar>
 </template>
 <script>
@@ -17,7 +18,8 @@ export default {
       message: "",
       type: "primary",
       color: "#49b1f5",
-      icon: ""
+      icon: "",
+      timeout: 3000
     };
   },
   watch: {
@@ -44,3 +46,14 @@ export default {
   }
 }
 </script>
+
+<style>
+.v-snack__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.v-snack__content {
+  padding: 0 10px;
+}
+</style>

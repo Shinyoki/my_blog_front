@@ -6,6 +6,7 @@ import animated from "animate.css";     // css class动态组件
 import VueAxios from "vue-axios";
 import axios from "@/assets/js/axios-config";
 import Nprogress from "nprogress";      // 加载进度条组件
+import "nprogress/nprogress.css";
 import {getRequest, postRequest, putRequest, deleteRequest} from "@/utils/axios-api";
 import vuetify from "@/plugins/vuetify";    // vuetify
 import "./assets/css/index.css";            // 自定义全局样式
@@ -15,7 +16,8 @@ import dayjs from "dayjs";                      // 日期处理工具
 import config from "./assets/js/config";        // 自定义全局配置
 import InfiniteLoading from "vue-infinite-loading";     // vue的 自动无限加载组件
 import "@/assets/css/markdown.css"          // markdown css
-import "highlight.js/styles/atom-one-dark.css";
+import "highlight.js/styles/darcula.css";    // 代码高亮样式
+
 
 Vue.config.productionTip = false;
 Vue.prototype.blogConfig = config;

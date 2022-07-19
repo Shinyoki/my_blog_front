@@ -547,7 +547,7 @@ export default {
   .article-card {
     display: flex;
     align-items: center;
-    height: 200px;
+    height: 250px;
     width: 100%;
     margin-top: 20px;
   }

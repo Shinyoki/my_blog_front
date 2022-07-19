@@ -20,6 +20,7 @@ Index.install = function(Vue) {
         instance.message = options.message;
         instance.type = options.type;
         instance.visible = true;
+        instance.timeout = duration;
 
         setTimeout(() => {
             instance.show = false;
@@ -30,6 +31,7 @@ Index.install = function(Vue) {
         instance.message = message;
         instance.type = "success";
         instance.visible = true;
+        instance.timeout = duration;
 
         setTimeout(() => {
             instance.show = false;
@@ -40,6 +42,7 @@ Index.install = function(Vue) {
         instance.message = message;
         instance.type = "error";
         instance.visible = true;
+        instance.timeout = duration;
 
         setTimeout(() => {
             instance.show = false;
@@ -50,6 +53,7 @@ Index.install = function(Vue) {
         instance.message = message;
         instance.type = "warning";
         instance.visible = true;
+        instance.timeout = duration;
 
         setTimeout(() => {
             instance.show = false;
@@ -60,6 +64,7 @@ Index.install = function(Vue) {
         instance.message = message;
         instance.type = "primary";
         instance.visible = true;
+        instance.timeout = duration;
 
         setTimeout(() => {
             instance.show = false;

@@ -7,6 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "tocbot": "^4.18.2",
     "clipboard": "^2.0.11",
     "highlight.js": "^10.7.3",
     "markdown-it": "^13.0.1",

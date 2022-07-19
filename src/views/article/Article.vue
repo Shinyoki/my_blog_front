@@ -84,27 +84,111 @@
 <!--        文章内容卡片-->
         <v-card
           class="article-wrapper">
+<!--          内容-->
           <div
-              class="markdown-body"
-              v-html="article.articleContent"/>
+              class="markdown-body article-content"
+              v-html="article.articleContent"
+              ref="article"
+          />
+<!--          版权-->
+          <div class="article-copyright">
+            <div>
+              <span>文章作者：</span>
+              <router-link to="/">
+<!--                TODO 文章作者-->
+                {{ this.$store.state.blogInfo.websiteConfig.websiteAuthor }}
+              </router-link>
+            </div>
+            <div>
+              <span>文章链接：</span>
+              <a :href="articleHref" target="_blank">{{ articleHref }}</a>
+            </div>
+          </div>
+          <div>
+            <span>版权声明：</span>本博客所有文章除特别声明外，均采用
+            <a
+                href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+                target="_blank"
+            >
+              CC BY-NC-SA 4.0
+            </a>
+            许可协议。转载请注明文章出处。
+          </div>
         </v-card>
+      </v-col>
+
+<!--      侧边功能-->
+      <v-col
+        :cols="12"
+        :md="3"
+        class="d-sm-block d-none"
+        >
+<!--        sticky 侧边栏-->
+        <div
+          style="position: sticky; top: 20px;"
+          >
+<!--                    文章目录-->
+          <v-card class="right-container">
+            <div class="right-title">
+              <i class="iconfont icon-fenlei1" style="font-size: 16.8px"/>
+              <span style="margin-left: 10px">目录</span>
+            </div>
+            <v-card>
+              <div id="toc"/>
+            </v-card>
+          </v-card>
+<!--          最新文章-->
+          <v-card class="right-container" style="margin-top: 20px;">
+            <div class="right-title">
+              <i class="iconfont icon-gengxinshijian" style="font-size: 16.8px"/>
+              <span style="margin-left: 10px;">最新文章</span>
+            </div>
+            <div class="article-list">
+              <div
+                  class="article-item"
+                  v-for="(newArticle, index) of article.newestArticleList"
+                  @click="this.$router.push('/articles/' + newArticle.articleId)"
+                  :key="index"
+                  >
+                <router-link
+                    :to="'/articles/' + newArticle.id"
+                    class="content-cover">
+                  <img :src="newArticle.articleCover"/>
+                </router-link>
+                <div class="content">
+                  <div class="content-title">
+                    <router-link :to="'/articles/' + newArticle.id">
+                      {{ newArticle.articleTitle }}
+                    </router-link>
+                  </div>
+                  <div class="content-time">{{ newArticle.createTime | date }}</div>
+                </div>
+              </div>
+            </div>
+          </v-card>
+        </div>
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script>
-import Clipboard from "clipboard";
-import hljs from "highlight.js";    // 引入复制组件
+import Clipboard from "clipboard";  // 复制文本
+import tocbot from "tocbot";        // 目录生成
 export default {
   created() {
     this.getCurArticle();
   },
+  mounted() {
+  },
   destroyed() {
     this.clipboard.destroy();
+    tocbot.destroy();
   },
   data() {
     return {
+      // 文章链接
+      articleHref: location.href,
       // 大概的阅读时间
       readTime: "1分钟",
       // 文章字数
@@ -185,7 +269,32 @@ export default {
             this.clipboard.on("error", () => {
               this.$toast.error("复制代码失败！")
             })
-            // TODO 目录和图片预览
+
+            // tocbot需要给对应的标签加上id，才能实现跳转，这也是为什么使用了nextTick
+            let doms = this.$refs.article.children;
+            if (doms.length) {
+              for (let index = 0; index < doms.length; index++) {
+                let reg = /^H[1-4]{1}$/;
+                // 如果是h标签，则加上id属性，值为index
+                if (reg.exec(doms[index].tagName)) {
+                  doms[index].id = index;
+                }
+              }
+            }
+
+            // tocbot 实现目录效果，需在dom流成型之后init
+            tocbot.init({
+              tocSelector: "#toc", // 目录绑定的dom元素
+              contentSelector: ".article-content", // 需要监听的内容dom
+              headingSelector: "h1, h2, h3, h4",  // 内容映射匹配的dom
+              hasInnerContainers: true,
+              smoothScrolling: true,
+              scrollSmoothness: 0.2,
+              onClick: (event) => {
+                // 防止刷新页面跳转
+                event.preventDefault();
+              }
+            });
           })
         } else {
           this.$toast.error("文章查询失败！");
@@ -266,6 +375,10 @@ export default {
     articleBanner() {
       return "background: url(" + this.article.articleCover + ") center center / cover no-repeat";
     },
+    // bloginfo
+    blogInfo() {
+      return this.$store.state.blogInfo;
+    }
   }
 
 }
@@ -344,10 +457,78 @@ export default {
   color: #eee !important;
 }
 
+/*右侧容器*/
+.right-container {
+  padding: 20px 24px;
+  font-size: 14px;
+}
+/*容器内标题*/
+.right-title {
+  display: flex;
+  align-items: center;
+
+  line-height: 2;
+  font-size: 16.8px;
+  margin-bottom: 6px;
+}
+.right-title i {
+  font-weight: bold;
+}
+/*其他文章*/
+.article-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 12px;
+
+  transition: all .3s;
+  cursor: pointer;
+}
+.article-item:hover {
+  background-color: #eee;
+}
+.article-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/*缩略图*/
+.content-cover {
+  width: 59px;
+  height: 59px;
+  overflow: hidden;
+}
+/*缩略图侧边内容*/
+.content {
+  /*填充剩余的内容*/
+  flex: 1;
+  padding-left: 10px;
+}
+.content-title {
+  /*只显示一行，*/
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: bolder;
+}
+.content-title a {
+  transition: all .3s;
+}
+.content-title a:hover {
+  color: #2ba1d1;
+}
+.content-time {
+  color: #858585;
+  font-size: 85%;
+  line-height: 2;
+}
 </style>
 
 
 <style lang="scss">
+//代码高亮样式
 pre.hljs {
   padding: 12px 2px 12px 40px !important;
   border-radius: 5px !important;
