@@ -17,6 +17,8 @@ import config from "./assets/js/config";        // 自定义全局配置
 import InfiniteLoading from "vue-infinite-loading";     // vue的 自动无限加载组件
 import "@/assets/css/markdown.css"          // markdown css
 import "highlight.js/styles/darcula.css";    // 代码高亮样式
+import "./assets/css/vue-social-share/client.css"       // vue-social-share css
+import share from "vue-social-share";         // vue-social-share
 
 
 Vue.config.productionTip = false;
@@ -29,6 +31,7 @@ Vue.use(animated);
 Vue.use(VueAxios, axios);
 Vue.use(Toast)
 Vue.use(InfiniteLoading);
+Vue.use(share);
 
 router.beforeEach((to, from, next) => {
     Nprogress.start();

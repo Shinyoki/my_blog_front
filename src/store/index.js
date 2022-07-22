@@ -75,7 +75,17 @@ export default new Vuex.Store({
         // 保存登陆前的所在页面
         saveBeforeLoginUrl(state, url) {
             state.beforeLoginPath = url;
-        }
+        },
+        // 添加点赞
+        articleLike(state, articleId) {
+            if (state.articleLikeSet.indexOf(articleId) == -1) {
+                // 添加点赞
+                state.articleLikeSet.push(articleId)
+            } else {
+                // 取消点赞
+                state.articleLikeSet.splice(state.articleLikeSet.indexOf(articleId), 1);
+            }
+        },
     },
     plugins: [
         createPersistedState({

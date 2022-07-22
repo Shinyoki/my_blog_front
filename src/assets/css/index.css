@@ -183,12 +183,19 @@ ul {
         animation: banner-effect 1s ease-in-out;
     }
 
-    /*    文章内容*/
+    /*    Home文章内容*/
     .article-wrapper {
         padding: 36px 14px;
     }
+    /*文章*/
+    .article-container {
+        animation: main 1s;
+        margin: 312.5px 0px 8px 0 !important;
+    }
 
 }
+
+
 
 /*代码高亮*/
 .hljs {
@@ -200,7 +207,9 @@ pre.hljs code {
     margin: 0 10px !important;
     overflow-x: auto !important;
 }
-
+.markdown-body li {
+    padding-left: 5px;
+}
 /*自定义tocbot的样式*/
 
 .is-collapsed {

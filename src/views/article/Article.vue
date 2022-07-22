@@ -103,16 +103,168 @@
               <span>文章链接：</span>
               <a :href="articleHref" target="_blank">{{ articleHref }}</a>
             </div>
+            <div>
+              <span>版权声明：</span>本博客所有文章除特别声明外，均采用
+              <a
+                  href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+                  target="_blank"
+              >
+                CC BY-NC-SA 4.0
+              </a>
+              许可协议。转载请注明文章出处。
+            </div>
           </div>
-          <div>
-            <span>版权声明：</span>本博客所有文章除特别声明外，均采用
-            <a
-                href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
-                target="_blank"
-            >
-              CC BY-NC-SA 4.0
+
+<!--          转发-->
+          <div class="d-flex align-center mt-4">
+            <div class="tag-container">
+              <router-link
+                v-for="tagDto of article.tagDTOList"
+                :key="tagDto.id"
+                :to="'/tags/' + tagDto.id"
+                >
+                {{ tagDto.tagName }}
+              </router-link>
+            </div>
+            <share :config="shareConfig" class="ml-auto"></share>
+          </div>
+
+<!--          点赞-->
+          <div class="d-flex align-center justify-center mt-5">
+            <a :class="isLike" @click="doLike">
+              <v-icon size="14" color="#fff">mdi-thumb-up</v-icon>
+              点赞
+              <span
+                v-show="article.likeCount > 0"
+              >
+                {{ article.likeCount }}
+              </span>
             </a>
-            许可协议。转载请注明文章出处。
+            <v-dialog
+                transition="dialog-bottom-transition"
+                max-width="600"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                    class="reward-btn"
+                    v-on="on"
+                    tile
+                    color="blue"
+                    v-if="blogInfo.websiteConfig.isReward == 1"
+                >
+                  <i class="iconfont icon-erweima"/> 打赏
+                </v-btn>
+              </template>
+              <template v-slot:default="dialog">
+                <v-card>
+                  <v-toolbar
+                      color="success"
+                      dark
+                  >感谢你的打赏</v-toolbar>
+<!--               二维码   -->
+                  <div class="reward-main">
+                    <ul class="reward-all">
+                      <li class="reward-item">
+                        <img
+                          class="reward-img"
+                          :src="blogInfo.websiteConfig.weixinQRCode"
+                          />
+                        <div class="reward-desc">微信</div>
+                      </li>
+                      <li class="reward-item">
+                        <img
+                            class="reward-img"
+                            :src="blogInfo.websiteConfig.alipayQRCode"
+                        />
+                        <div class="reward-desc">支付宝</div>
+                      </li>
+                    </ul>
+                  </div>
+                  <v-card-actions class="justify-end">
+                    <v-btn
+                        text
+                        @click="dialog.value = false"
+                    >关闭</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </template>
+            </v-dialog>
+          </div>
+<!--          上下篇-->
+          <div class="pagination-post">
+            <!-- 上一篇 -->
+            <div
+                :class="isFull(article.lastArticle.id)"
+                v-if="article.lastArticle.id"
+            >
+              <router-link :to="'/articles/' + article.lastArticle.id">
+                <img
+                    class="post-cover"
+                    :src="article.lastArticle.articleCover"
+                />
+                <div class="post-info">
+                  <div class="label">上一篇</div>
+                  <div class="post-title">
+                    {{ article.lastArticle.articleTitle }}
+                  </div>
+                </div>
+              </router-link>
+            </div>
+            <!-- 下一篇 -->
+            <div
+                :class="isFull(article.nextArticle.id)"
+                v-if="article.nextArticle.id"
+            >
+              <router-link :to="'/articles/' + article.nextArticle.id">
+                <img
+                    class="post-cover"
+                    :src="article.nextArticle.articleCover"
+                />
+                <div class="post-info" style="text-align: right">
+                  <div class="label">下一篇</div>
+                  <div class="post-title">
+                    {{ article.nextArticle.articleTitle }}
+                  </div>
+                </div>
+              </router-link>
+            </div>
+          </div>
+          <!--            推荐列表：推荐相同tag的-->
+          <div
+              class="recommend-container mt-10"
+              v-if="article.recommendArticleList.length"
+          >
+            <!--              标题-->
+            <div class="recommend-title">
+              <v-icon
+                  size="20"
+                  color="#4c4948"
+              >
+                mdi-thumb-up
+              </v-icon>
+              相关推荐
+            </div>
+            <div class="recommend-list">
+<!--                文章-->
+              <div
+                class="recommend-item"
+                v-for="(articleDTO, index) of article.recommendArticleList"
+                :key="index"
+                >
+                <router-link
+                  :to="'/articles/' + articleDTO.id"
+                  >
+                  <img class="recommend-cover" :src="articleDTO.articleCover"/>
+                  <div class="recommend-info">
+                    <div class="recommend-date">
+                      <i class="iconfont icon-rili"/>
+                      {{ articleDTO.createTime | date }}
+                    </div>
+                    <div>{{ articleDTO.articleTitle }}</div>
+                  </div>
+                </router-link>
+              </div>
+            </div>
           </div>
         </v-card>
       </v-col>
@@ -121,7 +273,7 @@
       <v-col
         :cols="12"
         :md="3"
-        class="d-sm-block d-none"
+        class="d-md-block d-none"
         >
 <!--        sticky 侧边栏-->
         <div
@@ -187,6 +339,12 @@ export default {
   },
   data() {
     return {
+      // 展开打赏页
+      expand: false,
+      // vue-share-config
+      shareConfig: {
+        sites: ["weibo", "qq", "wechat", "qzone", "douban", "twitter", "facebook"],
+      },
       // 文章链接
       articleHref: location.href,
       // 大概的阅读时间
@@ -203,11 +361,13 @@ export default {
         lastArticle: {
           id: 0,
           articleCover: "",
+          articleTitle: ""
         },
         // 下一篇
         nextArticle: {
           id: 0,
           articleCover: "",
+          articleTitle: ""
         },
         // 推荐文章集合
         recommendArticleList: [],
@@ -247,6 +407,33 @@ export default {
     }
   },
   methods: {
+    // 是否占满
+    isFull(exist) {
+      return exist ? "post full" : "post";
+    },
+    // 处理点赞
+    doLike() {
+      if (!this.$store.state.userId) {
+        // 未登录
+        this.$toast.warning("你还没有登录呢");
+        this.$store.state.loginFlag = true;
+        return false;
+      }
+
+      this.postRequest("/articles/" + this.article.id + "/like").then(res => {
+        if (res.data.flag) {
+          if (this.$store.state.articleLikeSet.indexOf(this.article.id) != -1) {
+            // 取消点赞
+            this.$set(this.article, "likeCount", this.article.likeCount - 1);
+          } else {
+            // 确认点赞
+            this.$set(this.article, "likeCount", this.article.likeCount + 1);
+          }
+
+          this.$store.state.articleLikeSet.push(this.article.id)
+        }
+      })
+    },
     // 获取当前地址的文章
     getCurArticle() {
       this.getRequest("/articles/" + this.$route.params.articleId).then(res => {
@@ -378,7 +565,13 @@ export default {
     // bloginfo
     blogInfo() {
       return this.$store.state.blogInfo;
-    }
+    },
+    // 点赞按钮样式
+    isLike() {
+      let likeSet = this.$store.state.articleLikeSet;
+      let flag = likeSet.indexOf(this.article.id) == -1;
+      return flag ? "like-btn" : "like-btn-active";
+    },
   }
 
 }
@@ -424,6 +617,26 @@ export default {
   .article-info span {
     font-size: 95%;
   }
+  /*上下叶*/
+  .pagination-post {
+    display: flex;
+  }
+  .post {
+    width: 50%;
+  }
+  /*推荐文章*/
+  .recommend-item {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    margin: 3px;
+
+    width: calc(33% - 6px);
+    height: 200px;
+
+    background-color: #000;
+    vertical-align: center;
+  }
 
 }
 /*==========移动端===========*/
@@ -450,6 +663,25 @@ export default {
   /*删掉第三行第一个分隔符*/
   .separator:first-child {
     display: none;
+  }
+  .pagination-post {
+    display: block;
+  }
+  .post {
+    width: 100% ;
+  }
+  .recommend-item {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    margin: 3px;
+
+    width: calc(100% - 4px);
+
+    height: 150px;
+    margin: 2px;
+    background: #000;
+
   }
 }
 /*分类颜色*/
@@ -524,6 +756,192 @@ export default {
   font-size: 85%;
   line-height: 2;
 }
+/*版权*/
+.article-copyright {
+  position: relative;
+  margin-top: 40px;
+  margin-bottom: 10px;
+
+  font-size: .875rem;
+  line-height: 2;
+  padding: 0.625rem 1rem;
+  border: 1px solid #eee;
+}
+.article-copyright span {
+  color: #49b1f5;
+  font-weight: bold;
+}
+.article-copyright a {
+  text-decoration: underline !important;
+  color: #99a9bf !important;
+}
+.article-copyright:before {
+  content: "";
+  position: absolute;
+  top: .7rem;
+  right: .7rem;
+
+  width: 1rem;
+  height: 1rem;
+  border-radius: 1rem;
+  background-color: #49b1f5;
+}
+/*点赞按钮*/
+.like-btn {
+  display: inline-block;
+  background-color: #969696;
+  width: 100px;
+  color: #fff !important;
+  text-align: center;
+  line-height: 36px;
+  font-size: .875rem;
+}
+.like-btn-active {
+  display: inline-block;
+  width: 100px;
+  background-color: #ec7259;
+  color: #fff !important;
+  text-align: center;
+  line-height: 36px;
+  font-size: .875rem;
+}
+/*打赏*/
+.reward-btn {
+  width: 100px;
+  background-color: #49b1f5;
+  margin: 0 1rem;
+  color: #fff !important;
+  text-align: center;
+  line-height: 36px;
+  font-size: .875rem;
+}
+/*打赏容器*/
+.reward-all {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 10px;
+}
+.reward-item {
+  display: inline-block;
+  padding: 0 8px;
+  list-style-type: none;
+}
+.reward-img {
+  width: 130px;
+  height: 130px;
+  display: block;
+}
+.reward-desc {
+  margin: -5px 0;
+  color: #858585;
+  text-align: center;
+}
+/*标签*/
+.tag-container a {
+  display: inline-block;
+  margin: .5rem .5rem .5rem 0;
+  padding: 0 .75rem;
+  width: fit-content;
+  border: 1px solid #49b1f5;
+  border-radius: 1rem;
+  color: #49b1f5 !important;
+  font-size: 12px;
+  line-height: 2;
+}
+.tag-container a:hover {
+  color: #fff !important;
+  background: #49b1f5;
+  transition: all 0.5s;
+}
+/*上下文章*/
+.pagination-post {
+  margin-top: 40px;
+  overflow: hidden;
+  width: 100%;
+  /*上阴影*/
+  background-color: #000;
+}
+.post {
+  position: relative;
+  height: 150px;
+}
+.post.full {
+  width: 100% !important;
+}
+.post-cover {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  opacity: .4;
+  transition: all .3s;
+
+  object-fit: cover;
+}
+.post-info {
+  position: absolute;
+  top: 50%;
+  padding: 20px 40px;
+  width: 100%;
+  transform: translate(0, -50%);
+  line-height: 2;
+  font-size: 14px;
+}
+.post a {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  height: 150px;
+}
+.post:hover .post-cover {
+  opacity: .8;
+  transform: scale(1.1);
+}
+.label {
+  font-size: 90%;
+  color: #eee;
+}
+.post-title {
+  font-weight: 500;
+  color: #fff;
+}
+/*推荐文章*/
+.recommend-cover {
+  width: 100%;
+  height: 100%;
+  opacity: .4;
+  transition: all .6s;
+  object-fit: cover;
+}
+.recommend-title {
+  margin-left: 10px;
+  line-height: 2;
+  font-size: 16.8px;
+  margin-bottom: 6px;
+}
+.recommend-info {
+  line-height: 2;
+  color: #fff;
+
+  /*文字居中*/
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+
+  width: 100%;
+  padding: 0 20px;
+
+  text-align: center;
+  font-size: 14px;
+}
+.recommend-date {
+  font-size: 90%;
+}
+.recommend-item:hover .recommend-cover {
+  opacity: .8;
+  transform: scale(1.1);
+}
+
 </style>
 
 
