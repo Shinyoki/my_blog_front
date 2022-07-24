@@ -86,6 +86,14 @@ export default new Vuex.Store({
                 state.articleLikeSet.splice(state.articleLikeSet.indexOf(articleId), 1);
             }
         },
+        // 添加点赞
+        commentLike(state, commentId) {
+            if (state.commentLikeSet.indexOf(commentId) != -1) {
+                state.commentLikeSet.splice(state.commentLikeSet.indexOf(commentId), 1);
+            } else {
+                state.commentLikeSet.push(commentId);
+            }
+        },
     },
     plugins: [
         createPersistedState({

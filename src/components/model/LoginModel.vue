@@ -124,6 +124,8 @@ export default {
               that.$store.commit("login", data.data);
               that.$store.commit("closeModel");
               that.$toast.success("登录成功");
+              // 登录成功后刷新页面
+              window.location.reload();
             } else {
               that.$toast.error(data.message);
             }

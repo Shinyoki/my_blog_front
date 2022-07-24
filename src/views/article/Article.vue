@@ -95,7 +95,6 @@
             <div>
               <span>文章作者：</span>
               <router-link to="/">
-<!--                TODO 文章作者-->
                 {{ this.$store.state.blogInfo.websiteConfig.websiteAuthor }}
               </router-link>
             </div>
@@ -266,6 +265,9 @@
               </div>
             </div>
           </div>
+<!--          分割线：评论区-->
+          <v-divider class="mt-15 mb-15"/>
+          <CommentArea :key="this.$route.fullPath"/>
         </v-card>
       </v-col>
 
@@ -299,7 +301,7 @@
               <div
                   class="article-item"
                   v-for="(newArticle, index) of article.newestArticleList"
-                  @click="this.$router.push('/articles/' + newArticle.articleId)"
+                  @click="push(newArticle.id)"
                   :key="index"
                   >
                 <router-link
@@ -327,7 +329,11 @@
 <script>
 import Clipboard from "clipboard";  // 复制文本
 import tocbot from "tocbot";        // 目录生成
+import CommentArea from "@/components/CommentArea"
 export default {
+  components: {
+    CommentArea
+  },
   created() {
     this.getCurArticle();
   },
@@ -339,6 +345,8 @@ export default {
   },
   data() {
     return {
+      // 文章图片集合
+      imgList: [],
       // 展开打赏页
       expand: false,
       // vue-share-config
@@ -407,6 +415,16 @@ export default {
     }
   },
   methods: {
+    push(articleId) {
+      this.$router.push('/articles/' + articleId);
+    },
+    // vue image swipe 图片预览
+    preview(image) {
+      this.$imagePreview({
+        images: this.imgList,
+        index: this.imgList.indexOf(image)
+      })
+    },
     // 是否占满
     isFull(exist) {
       return exist ? "post full" : "post";
@@ -482,6 +500,18 @@ export default {
                 event.preventDefault();
               }
             });
+
+            // 给文章里的img标签打上id
+            let imageDOMs = this.$refs.article.getElementsByTagName("img");
+            for (let index = 0; index < imageDOMs.length; index++) {
+              // 将img标签中的图片地址存储到vue中
+              this.imgList.push(imageDOMs[index].src)
+              // 给img标签打上监听事件，点击时传入自身的src属性并渲染
+              imageDOMs[index].addEventListener("click", (event) => {
+                this.preview(event.target.currentSrc);
+              })
+
+            }
           })
         } else {
           this.$toast.error("文章查询失败！");

@@ -245,11 +245,21 @@ pre.hljs code {
 }
 
 .right-container ol {
-    padding-left: 0px !important;
+    padding-left: 0 !important;
 }
 
 .right-container .is-collapsible {
     padding-left: 8px !important;
+}
+/*表情按钮*/
+.emoji-btn i{
+    cursor: pointer;
+    font-size: 1.7rem;
+}
+.emoji-btn-active i {
+    cursor: pointer;
+    font-size: 1.7rem;
+    color: #66b1ff;
 }
 
 /*==============动画=================*/

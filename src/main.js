@@ -19,7 +19,8 @@ import "@/assets/css/markdown.css"          // markdown css
 import "highlight.js/styles/darcula.css";    // 代码高亮样式
 import "./assets/css/vue-social-share/client.css"       // vue-social-share css
 import share from "vue-social-share";         // vue-social-share
-
+import VueImageSwipe from "vue-image-swipe";        // vue图片预览
+import 'vue-image-swipe/dist/vue-image-swipe.css'   //  vue-image-swipe css
 
 Vue.config.productionTip = false;
 Vue.prototype.blogConfig = config;
@@ -32,6 +33,7 @@ Vue.use(VueAxios, axios);
 Vue.use(Toast)
 Vue.use(InfiniteLoading);
 Vue.use(share);
+Vue.use(VueImageSwipe);
 
 router.beforeEach((to, from, next) => {
     Nprogress.start();
