@@ -15,7 +15,12 @@ const routes = [
   {
     path: "/articles/:articleId",
     component: resolve => require(["../views/article/Article.vue"], resolve)
+  },
+  {
+    path: "/archives",
+    component: resolve => require(["../views/archive/Archive.vue"], resolve),
   }
+
 ];
 
 const router = new VueRouter({

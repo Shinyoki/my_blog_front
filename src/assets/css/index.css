@@ -149,6 +149,14 @@ ul {
         padding: 50px 40px;
     }
 
+    /*banner 之后的主体内容*/
+    .blog-container {
+        margin: 380px auto 40px auto;
+        padding: 50px 40px;
+
+        max-width: 970px;
+        animation: main 1s;
+    }
 }
 
 /*==============移动端================*/
@@ -178,7 +186,7 @@ ul {
         left: 0;
         right: 0;
 
-        height: 200px;
+        height: 280px;
         background-color: #49b1f5 !important;
         animation: banner-effect 1s ease-in-out;
     }
@@ -187,10 +195,18 @@ ul {
     .article-wrapper {
         padding: 36px 14px;
     }
+
     /*文章*/
     .article-container {
         animation: main 1s;
         margin: 312.5px 0px 8px 0 !important;
+    }
+
+    /*banner下面的主体部分*/
+    .blog-container {
+        animation: main 1s;
+        margin: 240px 5px 20px 5px;
+        padding: 36px 14px;
     }
 
 }
