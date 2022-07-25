@@ -17,12 +17,12 @@
             :class="isLeft(i)"
             v-for="(item, i) in archiveList"
             :key="i"
-            :color="colors[i % colors.length]"
-            :icon="emoji[i % emoji.length]"
+            :color="colors[i % 10]"
+            :icon="emoji[i % 10]"
             fill-dot
         >
           <v-card
-              :color="colors[i % colors.length]"
+              :color="colors[i % 10]"
               v-ripple="{class: `white--text`}"
               dark
           >
@@ -51,6 +51,7 @@
 export default {
   name: "ArchiveView",
   created() {
+    window.document.title = this.$route.meta.title;
     this.listArchives();
   },
   data() {

@@ -157,6 +157,17 @@ ul {
         max-width: 970px;
         animation: main 1s;
     }
+    /*banner 图中的标题*/
+    .banner-title {
+        position: absolute;
+        top: 12.5rem;
+        padding: 0 .5rem;
+        width: 100%;
+        font-size: 2.5rem;
+        text-align: center;
+        color: #eee;
+        animation: title-scale 1s;
+    }
 }
 
 /*==============移动端================*/
@@ -208,7 +219,16 @@ ul {
         margin: 240px 5px 20px 5px;
         padding: 36px 14px;
     }
-
+    /*banner里面的标题*/
+    .banner-title {
+        position: absolute;
+        top: 8rem;
+        width: 100%;
+        text-align: center;
+        font-size: 1.625rem;
+        color: #eee;
+        animation: title-scale 1s;
+    }
 }
 
 
@@ -304,5 +324,18 @@ pre.hljs code {
         opacity: 1;
         filter: none;
         transform: translateY(0);
+    }
+}
+/*banner图中文字缩放*/
+@keyframes title-scale {
+    0% {
+        opacity: 0;
+        filter: alpha(opacity=0);
+        transform: scale(.7);
+    }
+    100% {
+        opacity: 1;
+        filter: none;
+        transform: scale(1);
     }
 }
