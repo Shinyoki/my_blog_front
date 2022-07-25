@@ -94,6 +94,13 @@ export default new Vuex.Store({
                 state.commentLikeSet.push(commentId);
             }
         },
+        talkLike(state, talkId) {
+            if (state.talkLikeSet.indexOf(talkId) != -1) {
+                state.talkLikeSet.splice(state.talkLikeSet.indexOf(talkId), 1);
+            } else {
+                state.talkLikeSet.push(talkId);
+            }
+        }
     },
     plugins: [
         createPersistedState({

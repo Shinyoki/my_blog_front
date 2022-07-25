@@ -41,7 +41,8 @@
       <infinite-loading
         @infinite="infiniteHandler"
         >
-        <div slot="no-more" class="mt-7">没有更多说说了捏~</div>
+        <div slot="no-more" class="mt-7">没有更多了捏~</div>
+        <div slot="no-results">没有更多了捏~</div>
       </infinite-loading>
     </v-card>
   </div>
@@ -86,7 +87,6 @@ export default {
 
       this.getRequest("/articles/archives", params).then(res => {
         if (res.data.flag) {
-          console.log("得到结果")
           if (res.data.data.recordList.length > 0) {
             this.archiveList.push(...res.data.data.recordList);
             this.current += res.data.data.recordList.length;

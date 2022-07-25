@@ -12,7 +12,7 @@
             :key="index"
             :src="photo"
             @click="preview(index)"
-        />
+        ></img>
       </div>
       <!--        无限加载-->
       <v-divider/>
@@ -36,7 +36,7 @@ export default {
       photoAlbumCover: "",  // 封面
       photoList: [],
       current: 1,
-      size: 10
+      size: 10,
     }
   },
   methods: {
@@ -98,9 +98,9 @@ export default {
 .photo-cover {
   margin: 3px;
   cursor: pointer;
-  flex-grow: 1;
   object-fit: cover;
 
+  flex-grow: 1;
   height: 200px;
 }
 </style>
