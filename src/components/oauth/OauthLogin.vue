@@ -22,7 +22,8 @@ export default {
     const that = this;
     // 关闭所有模态框
     that.$store.commit("closeModel");
-
+    console.log("得到消息")
+    console.log(this.$route.params)
     if (this.$route.query.code == undefined || this.$route.query.code == "") {
       that.$toast.warning("非法访问");
       that.$router.push("/");
@@ -57,6 +58,11 @@ export default {
             that.$router.push({path: "/"});
           }
         })
+      }
+
+      else if(loginType == "weiruan") {
+        console.log("得到消息")
+        console.log(this.$route.fullPath)
       }
       //TODO qq
     }

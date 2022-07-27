@@ -52,6 +52,14 @@ const routes = [
         meta: {
             title: "说说"
         }
+    },
+    {
+        path: "/talks/:talkId",
+        component: resolve => require(["../views/talk/TalkInfo.vue"], resolve),
+        meta: {
+            title: "说说"
+        }
+
     }
 
 

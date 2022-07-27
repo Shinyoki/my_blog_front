@@ -245,9 +245,11 @@ export default {
       current: 1,           // 评论区页数
       count: 0,            // 评论总数
       reFresh: true,       // 是否刷新评论区
+      topicId: 0,
     }
   },
   created() {
+    this.topicId = this.$route.params.articleId | this.$route.params.talkId;
     this.listComments();
   },
   methods: {
@@ -333,11 +335,10 @@ export default {
     },
     // 查询评论
     listComments() {
-      let articleId = this.$route.params.articleId;
       let params = {
         current: this.current,
         type: this.type,
-        topicId: articleId
+        topicId: this.topicId
       }
 
       this.getRequest("/comments", params).then(res => {
@@ -350,6 +351,8 @@ export default {
         }
         this.current++;
         this.count = res.data.data.count;
+        console.log("得到的内容")
+        console.log(res.data.data.recordList)
 
         // @getCommentCount=""获取评论数量
         this.$emit("getCommentCount", this.count);
@@ -379,11 +382,10 @@ export default {
       }
 
       // 文章id
-      const articleId = this.$route.params.articleId;
       let params = {
         commentContent: this.commentContent,
         type: this.type,
-        topicId: articleId,
+        topicId: this.topicId,
       }
 
 
