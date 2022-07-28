@@ -73,7 +73,20 @@ const routes = [
         meta: {
             title: "标签"
         }
-
+    },
+    {
+        path: "/tags/:tagId",
+        component: resolve => require(["../views/article/ArticleList.vue"], resolve),
+        meta: {
+            title: "标签"
+        }
+    },
+    {
+        path: "/categories/:categoryId",
+        component: resolve => require(["../views/article/ArticleList.vue"], resolve),
+        meta: {
+            title: "分类"
+        }
     }
 
 

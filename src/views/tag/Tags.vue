@@ -10,6 +10,7 @@
       >标签 - {{ count }}
       </v-card-subtitle>
       <vue-word-cloud
+          ref="cloud"
           style="width: 100%; height: 400px"
           :color="chooseColor"
           :words="tagList"
@@ -31,8 +32,7 @@ export default {
   created() {
     this.listTags();
   },
-  mounted() {
-  },
+  mounted() {},
   data() {
     return {
       tagList: [],
