@@ -112,7 +112,17 @@ export default {
       this.$store.state.emailFlag = true;
     },
     validate() {
-      this.$refs.form.validate()
+      if (!this.$refs.form.validate()) {
+        return false;
+      }
+      this.axios.put("/api/users/info", this.userInfo).then(({ data }) => {
+        if (data.flag) {
+          this.$store.commit("updateUserInfo", this.userInfo);
+          this.$toast({ type: "success", message: "修改成功" });
+        } else {
+          this.$toast({ type: "error", message: data.message });
+        }
+      });
     },
   },
   computed: {

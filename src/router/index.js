@@ -66,6 +66,14 @@ const routes = [
         meta: {
             title: "个人中心"
         }
+    },
+    {
+        path: "/tags",
+        component: resolve => require(["../views/tag/Tags.vue"], resolve),
+        meta: {
+            title: "标签"
+        }
+
     }
 
 

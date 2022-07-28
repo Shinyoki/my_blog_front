@@ -21,6 +21,7 @@ import "./assets/css/vue-social-share/client.css"       // vue-social-share css
 import share from "vue-social-share";         // vue-social-share
 import VueImageSwipe from "vue-image-swipe";        // vue图片预览
 import 'vue-image-swipe/dist/vue-image-swipe.css'   //  vue-image-swipe css
+import VueWordCloud from 'vuewordcloud';
 
 Vue.config.productionTip = false;
 Vue.prototype.blogConfig = config;
@@ -34,6 +35,7 @@ Vue.use(Toast)
 Vue.use(InfiniteLoading);
 Vue.use(share);
 Vue.use(VueImageSwipe);
+Vue.component(VueWordCloud.name, VueWordCloud);
 
 router.beforeEach((to, from, next) => {
     Nprogress.start();

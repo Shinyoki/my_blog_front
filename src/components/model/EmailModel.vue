@@ -132,6 +132,7 @@ export default {
       this.postRequest("/users/email", params).then(res => {
         if (res.data.flag) {
           this.$store.commit("closeModel");
+          this.$store.state.email = this.email;
           this.email = "";
           this.confirmCode = "";
           this.disableFlag = false;

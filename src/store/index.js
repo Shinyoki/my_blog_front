@@ -100,6 +100,14 @@ export default new Vuex.Store({
             } else {
                 state.talkLikeSet.push(talkId);
             }
+        },
+        // 更新用户信息
+        updateUserInfo(state, userInfo) {
+            this.state.avatar = userInfo.avatar;
+            this.state.nickname = userInfo.nickname;
+            this.state.intro = userInfo.intro;
+            this.state.webSite = userInfo.webSite;
+            this.state.email = userInfo.email;
         }
     },
     plugins: [
