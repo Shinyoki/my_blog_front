@@ -134,7 +134,7 @@ export default {
             if (res.data.flag) {
               that.$toast.success("验证码发送成功");
             } else {
-              that.$toast.error(res.data.msg);
+              that.$toast.error(res.data.message);
             }
           })
         }

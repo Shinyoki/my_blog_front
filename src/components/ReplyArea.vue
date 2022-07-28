@@ -150,7 +150,7 @@ export default {
           }
           this.$emit("reloadReply", this.index)
         } else {
-          this.$toast.error(res.data.msg);
+          this.$toast.error(res.data.message);
         }
       })
     }

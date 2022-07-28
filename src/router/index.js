@@ -59,7 +59,13 @@ const routes = [
         meta: {
             title: "说说"
         }
-
+    },
+    {
+        path: "/user",
+        component: resolve => require(["../views/user/User.vue"], resolve),
+        meta: {
+            title: "个人中心"
+        }
     }
 
 

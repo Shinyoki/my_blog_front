@@ -54,7 +54,7 @@
               <v-icon
                   size="16"
                   :color="isLike(talk.id)"
-                  @click.prevent="doLike(talk.id)"
+                  @click.prevent="doLike(talk)"
               >
                 mdi-thumb-up
               </v-icon>
@@ -95,7 +95,7 @@ export default {
   },
   data() {
     return {
-      talk: null,
+      talk: {},
       imgList: null,
       commentCount: 0
     }
@@ -111,7 +111,6 @@ export default {
             this.talk = data.data;
             this.imgList = this.talk.imgList;
 
-            console.log(this.talk)
           });
     },
     doLike(talk) {

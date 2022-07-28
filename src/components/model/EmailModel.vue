@@ -29,6 +29,7 @@
           clearable
           label="邮箱号"
           placeholder="请输入您的邮箱号"
+          @input="update()"
           v-model="email"
           @keyup.enter="bindEmail"
           />
@@ -81,11 +82,12 @@ export default {
       disableFlag: false,
       sendMessage: "发送",
       countdown: 60,
-
-
     }
   },
   methods: {
+    update() {
+      this.$emit("updateEmail", this.email);
+    },
     // 发送验证码
     sendCode() {
       if (!this.validEmail()) {
@@ -99,13 +101,14 @@ export default {
           that.beginCountDown();
           // 发送邮件
           let params = {
-            username: that.username
+            username: that.email
           }
           that.getRequest("/users/code", params).then(res => {
+            console.log(res)
             if (res.data.flag) {
               that.$toast.success("验证码发送成功");
             } else {
-              that.$toast.error(res.data.msg);
+              that.$toast.error(res.data.message);
             }
           })
         }
@@ -125,6 +128,7 @@ export default {
         code: this.confirmCode
       }
 
+      console.log(params)
       this.postRequest("/users/email", params).then(res => {
         if (res.data.flag) {
           this.$store.commit("closeModel");
@@ -134,7 +138,7 @@ export default {
           this.sendMessage = "发送";
           this.$toast.success("绑定成功")
         } else {
-          this.$toast.error(res.data.msg)
+          this.$toast.error(res.data.message)
         }
       })
     },

@@ -351,8 +351,6 @@ export default {
         }
         this.current++;
         this.count = res.data.data.count;
-        console.log("得到的内容")
-        console.log(res.data.data.recordList)
 
         // @getCommentCount=""获取评论数量
         this.$emit("getCommentCount", this.count);
@@ -404,7 +402,7 @@ export default {
           }
         } else {
           console.log("发送失败")
-          this.$toast.error(res.data.msg);
+          this.$toast.error(res.data.message);
         }
       })
     },
