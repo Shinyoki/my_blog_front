@@ -87,6 +87,13 @@ const routes = [
         meta: {
             title: "分类"
         }
+    },
+    {
+        path: "/categories",
+        component: resolve => require(["../views/category/Category.vue"], resolve),
+        meta: {
+            title: "分类"
+        }
     }
 
 
