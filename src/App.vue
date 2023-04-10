@@ -12,6 +12,8 @@
     <Footer></Footer>
 <!--    回到顶端-->
     <BackTop></BackTop>
+<!--    搜索模态框-->
+    <SearchModel></SearchModel>
 <!--    登录模态框-->
     <LoginModel></LoginModel>
 <!--    注册模态框-->
@@ -32,6 +34,7 @@ import LoginModel from "@/components/model/LoginModel";
 import RegisterModel from "@/components/model/RegisterModel";
 import EmailModel from "@/components/model/EmailModel";
 import ForgetModel from "@/components/model/ForgetModel";
+import SearchModel from "@/components/model/SearchModel.vue";
 export default {
   created() {
     //获取博客信息
@@ -50,6 +53,7 @@ export default {
     },
   },
   components: {
+    SearchModel,
     TopNavBar,
     SideBarNav,
     Footer,

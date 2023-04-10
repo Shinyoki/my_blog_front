@@ -108,6 +108,10 @@ export default new Vuex.Store({
             this.state.intro = userInfo.intro;
             this.state.webSite = userInfo.webSite;
             this.state.email = userInfo.email;
+        },
+        // 搜索框
+        switchSearchModel(state) {
+            state.searchFlag = !state.searchFlag
         }
     },
     plugins: [

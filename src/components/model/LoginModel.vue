@@ -203,7 +203,8 @@ export default {
       if (this.$store.state.blogInfo.websiteConfig.socialLoginList == undefined || this.$store.state.blogInfo.websiteConfig.socialLoginList == null) {
         flag = [];
       } else {
-        flag = JSON.parse(this.$store.state.blogInfo.websiteConfig.socialLoginList);
+        // flag = JSON.parse(this.$store.state.blogInfo.websiteConfig.socialLoginList);
+        flag = this.$store.state.blogInfo.websiteConfig.socialLoginList
       }
       return flag;
     },
