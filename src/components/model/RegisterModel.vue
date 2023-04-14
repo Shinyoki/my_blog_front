@@ -143,10 +143,6 @@ export default {
         return false;
       }
 
-      if (this.confirmCode.trim().length != 6) {
-        this.$toast.error("验证码格式不正确")
-        return false;
-      }
 
       const that = this;
       let captcha = new TencentCaptcha(this.blogConfig.TENCENT_CAPTCHA_APP_ID, (res) => {

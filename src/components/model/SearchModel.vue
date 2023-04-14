@@ -23,7 +23,7 @@
       <div class="search-result-wrapper">
         <hr class="divider" />
         <div class="article-search-container">
-          <v-card v-if="articleList.length == 0">啥也没有...</v-card>
+          <div v-if="articleList.length == 0">啥也没有...</div>
           <v-card
             elevation="2"
             class="mt-3 mb-5 grey pr-5 lighten-5 search-card"
@@ -68,7 +68,6 @@ export default {
     };
     this.loading = true;
     this.getRequest("/articles", params).then(res => {
-      console.log("结果", res);
       if (res.data.flag) {
         this.articleList = res.data.data;
       } else {
@@ -120,7 +119,7 @@ export default {
       this.getRequest("/articles", params).then(res => {
         console.log("结果", res);
         if (res.data.flag) {
-          this.articleList = res.data.data.records;
+          this.articleList = res.data.data;
         } else {
           this.$toast.error(res.data.message);
         }
