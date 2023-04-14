@@ -46,17 +46,17 @@
             style="color: #fff"
             @click="doLogin"
         >
-          登录
+        {{ $vuetify.lang.t('$vuetify.登录') }}
         </v-btn>
         <!--        注册和找回密码-->
         <div class="mt-10 login-tip">
-          <v-btn plain @click="openRegister">立即注册</v-btn>
-          <v-btn plain @click="openForget" class="float-right">忘记密码?</v-btn>
+          <v-btn plain @click="openRegister">{{ $vuetify.lang.t('$vuetify.立即注册') }}</v-btn>
+          <v-btn plain @click="openForget" class="float-right">{{ $vuetify.lang.t('$vuetify.忘记密码') }}?</v-btn>
         </div>
 
         <!--        第三方 登录-->
         <div v-if="socialLoginList.length > 0">
-          <div class="social-login-title">第三方登录</div>
+          <div class="social-login-title">{{ $vuetify.lang.t('$vuetify.第三方登录') }}</div>
           <div class="social-login-wrapper">
             <!--            qq-->
             <v-icon

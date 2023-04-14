@@ -22,7 +22,7 @@
       <!-- 文章数 -->
       <div class="blog-info-data">
         <router-link to="/archives">
-          <div style="font-size: .875rem">文章</div>
+          <div style="font-size: .875rem">{{ $vuetify.lang.t('$vuetify.文章') }}</div>
           <div style="font-size: 1.125rem">
             {{ this.$store.state.blogInfo.articleCount }}
           </div>
@@ -32,7 +32,7 @@
       <!-- 分类数 -->
       <div class="blog-info-data">
         <router-link to="/categories">
-          <div style="font-size: .875rem">分类</div>
+          <div style="font-size: .875rem">{{ $vuetify.lang.t('$vuetify.分类') }}</div>
           <div style="font-size: 1.125rem">
             {{ this.$store.state.blogInfo.categoryCount }}
           </div>
@@ -42,7 +42,7 @@
       <!-- 标签数 -->
       <div class="blog-info-data">
         <router-link to="/tags">
-          <div style="font-size: .875rem">标签</div>
+          <div style="font-size: .875rem">{{ $vuetify.lang.t('$vuetify.标签') }}</div>
           <div style="font-size: 1.125rem">
             {{ this.$store.state.blogInfo.tagCount }}
           </div>
@@ -56,63 +56,63 @@
     <div class="menu-container">
       <div class="menus-item">
         <router-link to="/">
-           <i class="iconfont icon-shouye"/> 首页
+           <i class="iconfont icon-shouye"/> {{ $vuetify.lang.t('$vuetify.首页') }}
         </router-link>
       </div>
       <div class="menus-item">
         <router-link to="/archives">
-          <i class="iconfont icon-guidang"/> 归档
+          <i class="iconfont icon-guidang"/> {{ $vuetify.lang.t('$vuetify.归档') }}
         </router-link>
       </div>
       <div class="menus-item">
         <router-link to="/albums">
-          <i class="iconfont icon-xiangce1"/> 相册
+          <i class="iconfont icon-xiangce1"/> {{ $vuetify.lang.t('$vuetify.相册') }}
         </router-link>
       </div>
       <div class="menus-item">
         <router-link to="/talks">
-          <i class="iconfont icon-pinglunxiao" /> 说说
+          <i class="iconfont icon-pinglunxiao" /> {{ $vuetify.lang.t('$vuetify.说说') }}
         </router-link>
       </div>
       <div class="menus-item">
         <router-link to="/categories">
-          <i class="iconfont icon-fenlei1"/> 分类
+          <i class="iconfont icon-fenlei1"/> {{ $vuetify.lang.t('$vuetify.分类') }}
         </router-link>
       </div>
       <div class="menus-item">
         <router-link to="/tags">
-          <i class="iconfont icon-biaoqing_xiao_o"/> 标签
+          <i class="iconfont icon-biaoqing_xiao_o"/> {{ $vuetify.lang.t('$vuetify.标签') }}
         </router-link>
       </div>
       <div class="menus-item">
         <router-link to="/links">
-          <i class="iconfont icon-lianjie"/> 友链
+          <i class="iconfont icon-lianjie"/> {{ $vuetify.lang.t('$vuetify.友链') }}
         </router-link>
       </div>
       <div class="menus-item">
         <router-link to="/about" >
-          <i class="iconfont icon-24gl-paperPlane"/> 关于
+          <i class="iconfont icon-24gl-paperPlane"/> {{ $vuetify.lang.t('$vuetify.关于') }}
         </router-link>
       </div>
       <div class="menus-item">
         <router-link to="/message">
-          <i class="iconfont icon-pinglunxiao"/> 留言
+          <i class="iconfont icon-pinglunxiao"/> {{ $vuetify.lang.t('$vuetify.留言') }}
         </router-link>
       </div>
       <div class="menus-item" v-if="!this.$store.state.avatar">
         <a @click="openLogin">
-          <i class="iconfont icon-denglu"/> 登录
+          <i class="iconfont icon-denglu"/> {{ $vuetify.lang.t('$vuetify.登录') }}
         </a>
       </div>
       <div v-else>
         <div class="menus-item">
           <router-link to="/user">
-            <i class="iconfont icon-iconfontgerenzhongxin1"/> 个人中心
+            <i class="iconfont icon-iconfontgerenzhongxin1"/> {{ $vuetify.lang.t('$vuetify.个人中心') }}
           </router-link>
         </div>
         <div class="menus-item">
           <a @click="logout">
-            <i class="iconfont icon-tuichubianji"/> 退出
+            <i class="iconfont icon-tuichubianji"/> {{ $vuetify.lang.t('$vuetify.退出') }}
           </a>
         </div>
       </div>

@@ -18,13 +18,13 @@
             <!--            发表时间-->
             <span>
               <i class="iconfont icon-rili"/>
-              发表于 {{ article.createTime | date }}
+              {{ $vuetify.lang.t('$vuetify.发表于') }} {{ article.createTime | date }}
             </span>
             <span class="separator"> | </span>
 
             <!--            更新时间-->
             <span>
-              <i class="iconfont icon-gengxinshijian"/> 更新于
+              <i class="iconfont icon-gengxinshijian"/> {{ $vuetify.lang.t('$vuetify.更新于') }}
               <span v-if="article.updateTime">
                 {{ article.updateTime | date }}
               </span>
@@ -47,13 +47,13 @@
             <!--            字数统计-->
             <span>
               <i class="iconfont icon-shuzishuru"/>
-              字数统计：{{ wordNum | num }}
+              {{ $vuetify.lang.t('$vuetify.字数统计：') }}{{ wordNum | num }}
               <span class="separator"> | </span>
             </span>
 <!--            阅读时长-->
             <span>
               <i class="iconfont icon-shijian"/>
-              阅读时长:：{{ readTime }}
+              {{ $vuetify.lang.t('$vuetify.阅读时长') }}:{{ readTime }}
             </span>
           </div>
 <!--          第三行：-->
@@ -62,12 +62,12 @@
 <!--            阅读量-->
             <span>
               <i class="iconfont icon-liulan"/>
-              阅读量：{{ article.viewsCount }}
+              {{ $vuetify.lang.t('$vuetify.阅读量：') }}{{ article.viewsCount }}
             </span>
             <span class="separator"> | </span>
             <span>
               <i class="iconfont icon-pinglunxiao"/>
-              评论数：{{ commentCount }}
+              {{ $vuetify.lang.t('$vuetify.评论数：') }}{{ commentCount }}
             </span>
           </div>
         </div>
@@ -93,24 +93,24 @@
 <!--          版权-->
           <div class="article-copyright">
             <div>
-              <span>文章作者：</span>
+              <span>{{ $vuetify.lang.t('$vuetify.文章作者：') }}</span>
               <router-link to="/">
                 {{ this.$store.state.blogInfo.websiteConfig.websiteAuthor }}
               </router-link>
             </div>
             <div>
-              <span>文章链接：</span>
+              <span>{{ $vuetify.lang.t('$vuetify.文章链接：') }}</span>
               <a :href="articleHref" target="_blank">{{ articleHref }}</a>
             </div>
             <div>
-              <span>版权声明：</span>本博客所有文章除特别声明外，均采用
+              <span>{{ $vuetify.lang.t('$vuetify.版权声明：') }}</span>{{ $vuetify.lang.t('$vuetify.本博客所有文章除特别声明外，均采用') }}
               <a
                   href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
                   target="_blank"
               >
                 CC BY-NC-SA 4.0
               </a>
-              许可协议。转载请注明文章出处。
+              {{ $vuetify.lang.t('$vuetify.许可协议。转载请注明文章出处。') }}
             </div>
           </div>
 
@@ -132,7 +132,7 @@
           <div class="d-flex align-center justify-center mt-5">
             <a :class="isLike" @click="doLike">
               <v-icon size="14" color="#fff">mdi-thumb-up</v-icon>
-              点赞
+              {{ $vuetify.lang.t('$vuetify.点赞') }}
               <span
                 v-show="article.likeCount > 0"
               >
@@ -151,7 +151,7 @@
                     color="blue"
                     v-if="blogInfo.websiteConfig.isReward == 1"
                 >
-                  <i class="iconfont icon-erweima"/> 打赏
+                  <i class="iconfont icon-erweima"/> {{ $vuetify.lang.t('$vuetify.打赏') }}
                 </v-btn>
               </template>
               <template v-slot:default="dialog">
@@ -159,7 +159,7 @@
                   <v-toolbar
                       color="success"
                       dark
-                  >感谢你的打赏</v-toolbar>
+                  >{{ $vuetify.lang.t('$vuetify.感谢你的打赏') }}</v-toolbar>
 <!--               二维码   -->
                   <div class="reward-main">
                     <ul class="reward-all">
@@ -168,14 +168,14 @@
                           class="reward-img"
                           :src="blogInfo.websiteConfig.weixinQRCode"
                           />
-                        <div class="reward-desc">微信</div>
+                        <div class="reward-desc">{{ $vuetify.lang.t('$vuetify.微信') }}</div>
                       </li>
                       <li class="reward-item">
                         <img
                             class="reward-img"
                             :src="blogInfo.websiteConfig.alipayQRCode"
                         />
-                        <div class="reward-desc">支付宝</div>
+                        <div class="reward-desc">{{ $vuetify.lang.t('$vuetify.支付宝') }}</div>
                       </li>
                     </ul>
                   </div>
@@ -183,7 +183,7 @@
                     <v-btn
                         text
                         @click="dialog.value = false"
-                    >关闭</v-btn>
+                    >{{ $vuetify.lang.t('$vuetify.关闭') }}</v-btn>
                   </v-card-actions>
                 </v-card>
               </template>
@@ -202,7 +202,7 @@
                     :src="article.lastArticle.articleCover"
                 />
                 <div class="post-info">
-                  <div class="label">上一篇</div>
+                  <div class="label">{{ $vuetify.lang.t('$vuetify.上一篇') }}</div>
                   <div class="post-title">
                     {{ article.lastArticle.articleTitle }}
                   </div>
@@ -220,7 +220,7 @@
                     :src="article.nextArticle.articleCover"
                 />
                 <div class="post-info" style="text-align: right">
-                  <div class="label">下一篇</div>
+                  <div class="label">{{ $vuetify.lang.t('$vuetify.下一篇') }}</div>
                   <div class="post-title">
                     {{ article.nextArticle.articleTitle }}
                   </div>
@@ -241,7 +241,7 @@
               >
                 mdi-thumb-up
               </v-icon>
-              相关推荐
+              {{ $vuetify.lang.t('$vuetify.相关推荐') }}
             </div>
             <div class="recommend-list">
 <!--                文章-->
@@ -285,7 +285,7 @@
           <v-card class="right-container">
             <div class="right-title">
               <i class="iconfont icon-fenlei1" style="font-size: 16.8px"/>
-              <span style="margin-left: 10px">目录</span>
+              <span style="margin-left: 10px">{{ $vuetify.lang.t('$vuetify.目录') }}</span>
             </div>
             <v-card>
               <div id="toc"/>
@@ -295,7 +295,7 @@
           <v-card class="right-container" style="margin-top: 20px;">
             <div class="right-title">
               <i class="iconfont icon-gengxinshijian" style="font-size: 16.8px"/>
-              <span style="margin-left: 10px;">最新文章</span>
+              <span style="margin-left: 10px;">{{ $vuetify.lang.t('$vuetify.最新文章') }}</span>
             </div>
             <div class="article-list">
               <div

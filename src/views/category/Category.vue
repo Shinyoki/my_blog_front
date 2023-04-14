@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="banner" :style="cover">
-      <h1 class="banner-title">分类</h1>
+      <h1 class="banner-title">{{ $vuetify.lang.t('$vuetify.分类') }}</h1>
     </div>
     <v-card class="blog-container">
-      <v-card-subtitle class="text-center font-weight-black" style="font-size: 2rem">总计分类数量：{{
+      <v-card-subtitle class="text-center font-weight-black" style="font-size: 2rem">{{ $vuetify.lang.t('$vuetify.总计分类数量：') }}{{
           count
         }}
       </v-card-subtitle>

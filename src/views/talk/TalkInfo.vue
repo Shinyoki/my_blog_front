@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="banner" :style="cover">
-      <div class="banner-title">说说</div>
+      <div class="banner-title">{{ $vuetify.lang.t('$vuetify.说说') }}</div>
     </div>
     <v-card class="blog-container">
       <v-card
@@ -24,7 +24,7 @@
           <div class="time font-weight-light">
             {{ talk.createTime | datetime }}
             <span class="top" v-if="talk.isTop == 1">
-                  <i class="iconfont iconzhiding" /> 置顶
+                  <i class="iconfont iconzhiding" /> {{ $vuetify.lang.t('$vuetify.置顶') }}
                 </span>
           </div>
           <!-- 说说信息 -->

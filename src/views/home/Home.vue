@@ -91,7 +91,7 @@
               <!--              是否置顶-->
               <span v-if="article.isTop == 1">
                 <span style="color: #ff7242">
-                  <i class="iconfont icon-zhiding"/> 置顶
+                  <i class="iconfont icon-zhiding"/> {{ $vuetify.lang.t('$vuetify.置顶') }}
                 </span>
                 <span class="separator">|</span>
               </span>
@@ -138,7 +138,7 @@
 
         <!--            无限加载-->
         <infinite-loading @infinite="infiniteHandler">
-          <div slot="no-more" class="mt-7">没有更多文章了捏~</div>
+          <div slot="no-more" class="mt-7">{{ $vuetify.lang.t('$vuetify.没有更多文章了捏~') }}</div>
         </infinite-loading>
       </v-col>
 
@@ -176,18 +176,18 @@
 <!--            博客信息-->
             <div class="blog-info-wrapper">
               <div class="blog-info-data">
-                <div style="font-size: .875rem">文章</div>
+                <div style="font-size: .875rem">{{ $vuetify.lang.t('$vuetify.文章') }}</div>
                 <div style="font-size: 1.25rem">{{ blogInfo.articleCount }}</div>
               </div>
               <div class="blog-info-data">
                 <router-link to="/categories">
-                  <div style="font-size: .875rem">分类</div>
+                  <div style="font-size: .875rem">{{ $vuetify.lang.t('$vuetify.分类') }}</div>
                   <div style="font-size: 1.25rem">{{ blogInfo.categoryCount }}</div>
                 </router-link>
               </div>
               <div class="blog-info-data">
                 <router-link to="/tags">
-                  <div style="font-size: 0.875rem">标签</div>
+                  <div style="font-size: 0.875rem">{{ $vuetify.lang.t('$vuetify.标签') }}</div>
                   <div style="font-size: 1.25rem">{{ blogInfo.tagCount }}</div>
                 </router-link>
               </div>
@@ -199,7 +199,7 @@
                 size="18"
                 class="mr-1"
                 >mdi-bookmark</v-icon>
-              加入书签
+                {{ $vuetify.lang.t('$vuetify.加入书签') }}
             </a>
 <!--            社交-->
             <div class="card-info-social">
@@ -227,7 +227,7 @@
               <v-icon
                 size="18"
                 >mdi-bell</v-icon>
-              公告
+                {{ $vuetify.lang.t('$vuetify.公告') }}
             </div>
             <div style="font-size: .875rem">
               {{ blogInfo.websiteConfig.websiteNotice }}
@@ -239,14 +239,14 @@
               <v-icon size="18">
                 mdi-chart-line
               </v-icon>
-              网站资讯
+              {{ $vuetify.lang.t('$vuetify.网站资讯') }} 
             </div>
             <div class="web-info">
               <div style="padding: 4px 0 0">
-                运行时间：<span class="float-right">{{ time }}</span>
+                {{ $vuetify.lang.t('$vuetify.运行时间：') }}<span class="float-right">{{ time }}</span>
               </div>
               <div style="padding: 4px 0 0">
-                总访问量：<span class="float-right">{{ blogInfo.viewsCount }}</span>
+                {{ $vuetify.lang.t('$vuetify.总访问量：') }}<span class="float-right">{{ blogInfo.viewsCount }}</span>
               </div>
             </div>
           </v-card>
@@ -258,7 +258,7 @@
         top
         color="#49b1f5"
         :timeout="3000"
-    >按CTRL+D 键将本页加入书签</v-snackbar>
+    >{{ $vuetify.lang.t('$vuetify.按CTRL+D 键将本页加入书签') }}</v-snackbar>
   </div>
 </template>
 

@@ -1,13 +1,13 @@
 <template>
   <div>
     <div class="banner" :style="cover">
-      <div class="banner-title">标签</div>
+      <div class="banner-title">{{ $vuetify.lang.t('$vuetify.标签') }}</div>
     </div>
     <v-card class="blog-container">
       <v-card-subtitle
           style="font-size: 3rem"
           class="text-center font-weight-bold"
-      >标签 - {{ count }}
+      >{{ $vuetify.lang.t('$vuetify.标签') }} - {{ count }}
       </v-card-subtitle>
       <vue-word-cloud
           ref="cloud"

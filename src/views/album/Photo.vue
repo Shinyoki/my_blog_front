@@ -1,7 +1,7 @@
 <template>
   <div>
     <div :style="cover" class="banner">
-      <div class="banner-title">图库</div>
+      <div class="banner-title">{{ $vuetify.lang.t('$vuetify.图库') }}</div>
     </div>
     <!--    相册-->
     <v-card class="blog-container">
@@ -17,8 +17,8 @@
       <!--        无限加载-->
       <v-divider/>
       <infinite-loading class="mt-2 font-weight-medium" @infinite="infiniteHandler">
-        <div slot="no-more">没有更多图片了捏</div>
-        <div slot="no-results">没有更多图片了捏</div>
+        <div slot="no-more">{{ $vuetify.lang.t('$vuetify.没有更多图片了捏') }}</div>
+        <div slot="no-results">{{ $vuetify.lang.t('$vuetify.没有更多图片了捏') }}</div>
       </infinite-loading>
     </v-card>
   </div>

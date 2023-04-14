@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="banner" :style="cover">
-      <div class="banner-title">说说</div>
+      <div class="banner-title">{{ $vuetify.lang.t('$vuetify.说说') }}</div>
     </div>
     <!--    内容-->
     <v-card class="blog-container">
@@ -33,7 +33,7 @@
               <div class="time font-weight-light">
                 {{ talk.createTime | datetime }}
                 <span class="top" v-if="talk.isTop == 1">
-                  <i class="iconfont iconzhiding" /> 置顶
+                  <i class="iconfont iconzhiding" /> {{ $vuetify.lang.t('$vuetify.置顶') }}
                 </span>
               </div>
               <!-- 说说信息 -->
@@ -89,8 +89,8 @@
 
       <v-divider class="ma-2"/>
       <infinite-loading class="font-weight-medium" @infinite="infiniteHandler">
-        <div slot="no-more" class="mt-7">没有更多说说了捏~</div>
-        <div slot="no-results">没有更多说说了捏~</div>
+        <div slot="no-more" class="mt-7">{{ $vuetify.lang.t('$vuetify.没有更多说说了捏') }}~</div>
+        <div slot="no-results">{{ $vuetify.lang.t('$vuetify.没有更多说说了捏') }}~</div>
       </infinite-loading>
     </v-card>
   </div>

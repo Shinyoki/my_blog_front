@@ -2,7 +2,7 @@
   <div>
     <!-- banner -->
     <div class="banner" :style="cover">
-      <h1 class="banner-title">相册</h1>
+      <h1 class="banner-title">{{ $vuetify.lang.t('$vuetify.相册') }}</h1>
     </div>
 <!--    内容-->
     <v-card class="blog-container">

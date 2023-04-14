@@ -66,10 +66,10 @@
           color="red"
           style="color:#fff"
           @click="doRegister"
-          >注册</v-btn>
+          >{{ $vuetify.lang.t('$vuetify.注册') }}</v-btn>
 
         <div class="mt-10 login-tip">
-          已有账号？<span @click="this.$store.state.loginFlag = true">登录</span>
+          {{ $vuetify.lang.t('$vuetify.已有账号') }}?<span @click="this.$store.state.loginFlag = true">{{ $vuetify.lang.t('$vuetify.登录') }}</span>
         </div>
       </div>
     </v-card>

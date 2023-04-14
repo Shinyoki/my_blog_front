@@ -50,7 +50,7 @@
                 color="blue"
                 class="mr-auto"
                 width="100px"
-            >提交
+            >{{ $vuetify.lang.t('$vuetify.提交') }}
             </v-btn>
           </div>
           <!--          表情栏-->
@@ -71,7 +71,7 @@
     <!--    评论详情-->
     <div v-if="count > 0 && reFresh">
       <!--      评论数量-->
-      <div class="count">{{ count }} 条评论</div>
+      <div class="count">{{ count }} {{ $vuetify.lang.t('$vuetify.条评论') }}</div>
 <!--      评论-->
       <v-card
           class="d-flex pa-2 mt-3"
@@ -99,7 +99,7 @@
           <!--          评论信息-->
           <div class="comment-info">
             <!--            楼层-->
-            <span class="mr-1">{{ count - index }} 楼</span>
+            <span class="mr-1">{{ count - index }} {{ $vuetify.lang.t('$vuetify.楼') }}</span>
             <!--            发表时间-->
             <span class="mr-1">
               {{ comment.createTime | date }}
@@ -113,7 +113,7 @@
               {{ comment.likeCount }}
             </span>
 
-            <span v-ripple="{class: 'blue--text'}" class="reply-btn" @click="replyComment(comment, index)">回复</span>
+            <span v-ripple="{class: 'blue--text'}" class="reply-btn" @click="replyComment(comment, index)">{{ $vuetify.lang.t('$vuetify.回复') }}</span>
           </div>
           <!--          评论内容 -->
           <p v-html="comment.commentContent" class="comment-content"/>
@@ -146,7 +146,7 @@
                     @click="doLike(reply)"
                 />
                 <span v-show="reply.likeCount > 0">{{ reply.likeCount }}</span>
-                <span class="reply-btn"  @click="replyComment(reply, index)">回复</span>
+                <span class="reply-btn"  @click="replyComment(reply, index)">{{ $vuetify.lang.t('$vuetify.回复') }}</span>
               </div>
               <!--              内部回复-->
               <p class="comment-content">
@@ -185,7 +185,7 @@
                 style="color: #00a1d6; cursor: pointer"
                 @click="checkReplies(comment, index)"
             >
-            点击查看
+            {{ $vuetify.lang.t('$vuetify.点击查看') }}
             </span>
           </div>
           <!--        回复分页-->
@@ -213,13 +213,13 @@
 <!--      加载按钮-->
       <div class="load-wrapper">
         <v-btn outlined v-if="count > commentList.length" @click="listComments">
-          加载更多...
+          {{ $vuetify.lang.t('$vuetify.加载更多') }}...
         </v-btn>
       </div>
     </div>
     <!-- 没有评论提示 -->
     <div v-else style="padding:1.25rem;text-align:center">
-      来发评论吧~
+      {{ $vuetify.lang.t('$vuetify.来发评论吧') }}~
     </div>
   </div>
 </template>

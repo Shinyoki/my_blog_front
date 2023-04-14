@@ -23,6 +23,9 @@ import VueImageSwipe from "vue-image-swipe";        // vue图片预览
 import 'vue-image-swipe/dist/vue-image-swipe.css'   //  vue-image-swipe css
 import VueWordCloud from 'vuewordcloud';
 
+Vue.prototype.$lang = function (lang) {
+    return this.$vuetify.lang.t('$vuetify.' + lang)
+}
 Vue.config.productionTip = false;
 Vue.prototype.blogConfig = config;
 Vue.prototype.getRequest = getRequest;

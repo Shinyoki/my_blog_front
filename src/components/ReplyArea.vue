@@ -107,6 +107,7 @@ export default {
     },
     // 关闭表情输入框
     closeEmojiArea(event) {
+      console.log(event);
       if (event.path[0] && event.path[0].id == "emoji") {
         return;
       } else {

@@ -2,11 +2,11 @@
   <div>
     <!--   banner-->
     <div class="banner" :style="cover">
-      <h1 class="banner-title">归档</h1>
+      <h1 class="banner-title">{{ $vuetify.lang.t('$vuetify.归档') }}</h1>
     </div>
     <v-card class="blog-container">
       <v-card-subtitle class="text-h3 text-center" style="">
-        归档
+        {{ $vuetify.lang.t('$vuetify.归档') }}
       </v-card-subtitle>
       <v-divider/>
       <v-timeline
@@ -31,7 +31,7 @@
                 {{ item.articleTitle }}
               </v-card-title>
               <v-card-text class="white text--primary font-weight-medium pt-3">
-                发表时间：{{ item.createTime | date }}
+                {{ $vuetify.lang.t('$vuetify.发表时间：') }}{{ item.createTime | date }}
               </v-card-text>
             </router-link>
           </v-card>
@@ -41,8 +41,8 @@
       <infinite-loading
         @infinite="infiniteHandler"
         >
-        <div slot="no-more" class="mt-7">没有更多了捏~</div>
-        <div slot="no-results">没有更多了捏~</div>
+        <div slot="no-more" class="mt-7">{{ $vuetify.lang.t('$vuetify.没有更多了捏') }}~</div>
+        <div slot="no-results">{{ $vuetify.lang.t('$vuetify.没有更多了捏') }}~</div>
       </infinite-loading>
     </v-card>
   </div>

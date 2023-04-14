@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="banner" :style="cover">
-      <div class="banner-title">个人中心</div>
+      <div class="banner-title">{{ $vuetify.lang.t('$vuetify.个人中心') }}</div>
     </div>
     <v-card class="blog-container">
       <v-card-title class="font-weight-bold">
-        基本信息
+        {{ $vuetify.lang.t('$vuetify.基本信息') }}
       </v-card-title>
 
       <div class="info-container d-md-flex">
@@ -65,7 +65,7 @@
             @click="validate"
             shaped
             >
-            提交
+            {{ $vuetify.lang.t('$vuetify.提交') }}
             </v-btn>
         </v-form>
       </div>

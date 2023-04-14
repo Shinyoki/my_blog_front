@@ -14,7 +14,7 @@
         >mdi-close
       </v-icon>
       <div class="login-wrapper">
-        <h1 style="text-align: center" class="mb-7">忘记密码</h1>
+        <h1 style="text-align: center" class="mb-7">{{ $vuetify.lang.t('$vuetify.忘记密码') }}</h1>
 <!--        用户名-->
         <v-text-field
           clearable
@@ -60,10 +60,10 @@
           color="green"
           style="color: white"
           @click="forget"
-          >确定</v-btn>
+          >{{ $vuetify.lang.t('$vuetify.确定') }}</v-btn>
 <!--        登录-->
         <div class="mt-10 mr-7 login-tip float-right">
-          想起密码？<span @click="openLogin">点此登录</span>
+          {{ $vuetify.lang.t('$vuetify.忘记密码') }}?<span @click="openLogin">{{ $vuetify.lang.t('$vuetify.点此登录') }}</span>
         </div>
       </div>
     </v-card>
